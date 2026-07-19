@@ -6,8 +6,8 @@ role: "Product Manager"
 timeframe: "2022"
 team: "Engineering, Design"
 skills: ["Integrations & Ecosystem", "GTM & Launch Sequencing", "Growth & Retention"]
-featured: true
-order: 4
+featured: false
+order: 5
 links: []
 ---
 
