@@ -1,18 +1,365 @@
+/* ============================================================
+   Ocean Deep — global stylesheet
+   Tokens from career-website-plan/assets/design-tokens.md (T05).
+   Dark-first / dark-only palette, defined in OKLCH.
+   Loaded once in Base.astro, so every page inherits it.
+   ============================================================ */
+
 :root {
-  --color-background: oklch(0.22 0.06 250);
-  --color-foreground: oklch(0.95 0.01 245);
-  --color-accent: oklch(0.74 0.09 192);
-  --color-muted: oklch(0.65 0.03 235);
+  /* ---- Color (OKLCH: lightness chroma hue) ---- */
+  --background: oklch(0.22 0.06 250);          /* deep navy page background */
+  --foreground: oklch(0.95 0.01 245);          /* near-white body text */
+  --card: oklch(0.28 0.06 250);                /* lighter navy — card surfaces */
+  --card-foreground: oklch(0.95 0.01 245);
+  --primary: oklch(0.59 0.09 215);             /* muted steel blue */
+  --primary-foreground: oklch(0.15 0.04 260);
+  --secondary: oklch(0.35 0.07 245);
+  --muted: oklch(0.30 0.06 250);
+  --muted-foreground: oklch(0.65 0.03 235);    /* dimmed text: captions, subheads */
+  --accent: oklch(0.74 0.09 192);              /* teal — the "pop" for links/highlights */
+  --accent-foreground: oklch(0.15 0.04 260);
+  --border: oklch(0.35 0.06 245 / 0.25);       /* translucent, subtle dividers */
 
-  --font-display: "Space Grotesk", sans-serif;
-  --font-body: "DM Sans", sans-serif;
+  /* ---- Type ---- */
+  --font-display: "Space Grotesk", system-ui, sans-serif;   /* headings */
+  --font-body: "DM Sans", system-ui, sans-serif;            /* body */
+
+  /* ---- Shape & layout ---- */
+  --radius: 0.625rem;         /* 10px — soft corners on cards/buttons */
+  --content-width: 56rem;     /* ~896px reading measure, centered */
+  --transition: 150ms ease;
 }
+
+/* ---- Reset-ish base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html { scroll-behavior: smooth; }
+
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  /* Ambient "Ocean Deep" backdrop: the hero graphic, fixed behind all content
+     site-wide, dimmed by a translucent navy overlay so text stays legible.
+     Tune the image's presence via the overlay % (higher = fainter image). */
+  background-color: var(--background);
+  background-image:
+    linear-gradient(
+      color-mix(in oklch, var(--background) 82%, transparent),
+      color-mix(in oklch, var(--background) 82%, transparent)
+    ),
+    url("/hero.webp");
+  background-position: center, center;
+  background-size: cover, cover;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
+  color: var(--foreground);
   font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3 {
+/* ---- Typography ---- */
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
+  line-height: 1.15;
+  font-weight: 600;
+}
+h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: -0.01em; }
+h3 { font-size: 1.25rem; }
+
+a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+a:hover { text-decoration: underline; }
+
+/* ---- Layout helpers ---- */
+.container {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+section { padding-block: 4rem; }
+.section-title {
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.subhead { color: var(--muted-foreground); font-size: clamp(1.05rem, 2vw, 1.3rem); }
+
+/* ---- Header (sticky, blurred) ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: color-mix(in oklch, var(--background) 75%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1rem;
+}
+.site-header .brand { font-family: var(--font-display); font-weight: 700; color: var(--foreground); font-size: 1.05rem; }
+.site-header .brand:hover { text-decoration: none; color: var(--accent); }
+.site-nav { display: flex; gap: 1.5rem; }
+.site-nav a { color: var(--muted-foreground); font-size: 0.95rem; }
+.site-nav a:hover { color: var(--foreground); text-decoration: none; }
+
+/* ---- Footer ---- */
+.site-footer { border-top: 1px solid var(--border); padding-block: 2rem; margin-top: 4rem; }
+.site-footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-footer .links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.site-footer a { color: var(--muted-foreground); font-size: 0.9rem; }
+.site-footer a:hover { color: var(--foreground); }
+.site-footer small { color: var(--muted-foreground); font-size: 0.85rem; }
+
+/* ---- Hero ---- */
+/* Full-bleed section holds the background; the inner .container keeps text
+   at the same reading width as every other section (left-aligned, editorial). */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("/hero.webp") center right / cover no-repeat;
+}
+/* Two gradients over the image: (1) L→R fade keeps left-aligned text legible
+   while letting the teal graphic show on the right; (2) top+bottom fade blends
+   the image under the sticky header and into the next section. */
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg,
+      var(--background) 0%,
+      color-mix(in oklch, var(--background) 82%, transparent) 42%,
+      color-mix(in oklch, var(--background) 35%, transparent) 100%),
+    linear-gradient(to bottom,
+      color-mix(in oklch, var(--background) 55%, transparent) 0%,
+      transparent 28%,
+      transparent 68%,
+      var(--background) 100%);
+}
+.hero { position: relative; z-index: 1; padding-block: 7rem 5rem; }
+.hero h1 { max-width: 20ch; }
+.hero .subhead { margin-top: 1.5rem; max-width: 48ch; }
+.cta { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* Small pill above the headline, e.g. "Product Manager". */
+.badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  background: color-mix(in oklch, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in oklch, var(--accent) 30%, transparent);
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: all var(--transition);
+  border: 1px solid transparent;
+}
+.btn-primary { background-color: var(--accent); color: var(--accent-foreground); }
+.btn-primary:hover { text-decoration: none; filter: brightness(1.08); }
+.btn-secondary { border-color: var(--border); color: var(--foreground); }
+.btn-secondary:hover { text-decoration: none; border-color: var(--accent); }
+
+/* ---- Work grid + cards ---- */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.work-card {
+  display: block;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  color: var(--foreground);
+  transition: border-color var(--transition), transform var(--transition);
+}
+.work-card:hover {
+  border-color: color-mix(in oklch, var(--accent) 40%, transparent);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+/* Top row: teal icon + soft tag, matching the prototype's feature cards. */
+.work-card-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; }
+.work-card-icon { display: inline-flex; color: var(--accent); }
+.work-card-icon svg { width: 22px; height: 22px; }
+.work-card h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.6rem; }
+.work-card .summary { color: var(--muted-foreground); font-size: 0.95rem; }
+
+/* pill tag — outlined teal by default */
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+}
+/* soft variant — filled, light text (used in the card top row) */
+.tag-soft {
+  color: var(--foreground);
+  background: color-mix(in oklch, var(--secondary) 55%, transparent);
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+
+/* ---- About / Skills ---- */
+.about { max-width: 62ch; }
+.about p + p { margin-top: 1rem; }
+.skills-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+.skill-group h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+.skill-group p { color: var(--muted-foreground); font-size: 0.95rem; }
+
+/* ============================================================
+   Split hub (home page only) — sticky left identity rail +
+   scrolling right content column. Rendered when the page uses
+   <Base bare>; every other page keeps the top-nav layout.
+   ============================================================ */
+.hub {
+  display: flex;
+  align-items: flex-start;
+  max-width: 1180px;
+  margin-inline: auto;
+  gap: 2rem;
+}
+
+/* Left rail — sticks in place while the right column scrolls. */
+.hub-rail {
+  flex: 0 0 40%;
+  max-width: 400px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 4.5rem 2.5rem 3rem;
+  display: flex;
+}
+.rail-inner { display: flex; flex-direction: column; width: 100%; }
+.rail-photo {
+  width: 84px;
+  height: 84px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  border: 1px solid var(--border);
+  margin-bottom: 1.75rem;
+}
+.rail-role {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.rail-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.85rem;
+}
+.rail-tagline { color: var(--muted-foreground); font-size: 1.05rem; max-width: 24ch; }
+.rail-location { color: var(--muted-foreground); font-size: 0.9rem; margin-top: 0.85rem; }
+
+/* Vertical nav with the animated line indicator + scroll-spy `.active`. */
+.rail-nav { margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; }
+.rail-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--muted-foreground);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.rail-nav a:hover { color: var(--foreground); text-decoration: none; }
+.rail-nav .nav-line {
+  display: inline-block;
+  width: 26px;
+  height: 1.5px;
+  background: var(--muted-foreground);
+  transition: width var(--transition), background-color var(--transition);
+}
+.rail-nav a:hover .nav-line,
+.rail-nav a.active .nav-line { width: 52px; background: var(--accent); }
+.rail-nav a.active { color: var(--foreground); }
+
+.rail-links { margin-top: auto; padding-top: 2.5rem; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.rail-links a { color: var(--muted-foreground); font-size: 0.9rem; }
+.rail-links a:hover { color: var(--foreground); }
+
+/* Right column — the scrolling content. */
+.hub-content { flex: 1 1 auto; max-width: 640px; padding: 4.5rem 2rem 5rem; }
+.hub-content section { padding-block: 2.5rem; }
+.hub-content section:first-child { padding-top: 0; }
+
+@media (max-width: 900px) {
+  /* Stack: rail becomes a top block, nav goes horizontal, nothing sticky. */
+  .hub { flex-direction: column; gap: 0; }
+  .hub-rail {
+    position: static;
+    height: auto;
+    flex-basis: auto;
+    max-width: none;
+    width: 100%;
+    padding: 3rem 1.5rem 1rem;
+  }
+  .rail-nav { flex-direction: row; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.75rem; }
+  .rail-links { margin-top: 1.75rem; padding-top: 0; }
+  .hub-content { max-width: none; width: 100%; padding: 1rem 1.5rem 3rem; }
+}
+
+/* ---- Case-study detail ---- */
+.case-study { max-width: 46rem; }
+.case-study .meta { color: var(--muted-foreground); font-size: 0.9rem; margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.prose h2 { margin-top: 2rem; margin-bottom: 0.5rem; font-size: 1.4rem; }
+.prose p { margin-top: 0.75rem; color: var(--foreground); }
+.prose strong { color: var(--foreground); }
+.back-link { display: inline-block; margin-bottom: 2rem; color: var(--muted-foreground); }
+.back-link:hover { color: var(--foreground); }
+
+/* ---- Résumé ---- */
+.resume h2 { margin-top: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; }
+.resume .role { margin-top: 1.25rem; }
+.resume .role .when { color: var(--muted-foreground); font-size: 0.9rem; }
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .site-nav { gap: 1rem; font-size: 0.85rem; }
+  section { padding-block: 3rem; }
+  .hero { padding-block: 3rem 2rem; }
 }

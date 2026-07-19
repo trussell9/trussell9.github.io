@@ -1,0 +1,37 @@
+---
+// WorkCard — one clickable case-study card. Reused on the home page
+// (Selected Work) and on the /work index, so the card markup lives in one place.
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	entry: CollectionEntry<'work'>;
+}
+
+const { entry } = Astro.props;
+const { title, label, summary, skills } = entry.data;
+// entry.id is the slug (filename without extension), e.g. "nfl-streaming".
+// Card shows the short `label` if set, otherwise the full narrative `title`.
+const heading = label ?? title;
+
+// Inline SVG icon per case study (lucide-style, 24×24 stroke), keyed by slug.
+// These are placeholders we can refine together — swap the path string to change
+// an icon, or move this into the frontmatter later if you'd rather set it per file.
+const icons: Record<string, string> = {
+	'migration-lifecycle': '<path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>',
+	'nfl-streaming': '<polygon points="6 3 20 12 6 21 6 3"/>',
+	'bet-tracker': '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+	'ontario-linked-accounts': '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+};
+const iconPaths = icons[entry.id] ?? '<circle cx="12" cy="12" r="9"/>';
+const tag = skills[0];
+---
+<a href={`/work/${entry.id}`} class="work-card">
+	<div class="work-card-top">
+		<span class="work-card-icon" aria-hidden="true">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconPaths}></svg>
+		</span>
+		{tag && <span class="tag tag-soft">{tag}</span>}
+	</div>
+	<h3>{heading}</h3>
+	<p class="summary">{summary}</p>
+</a>

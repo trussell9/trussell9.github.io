@@ -1,0 +1,62 @@
+---
+// Base.astro — the shared layout every page reuses.
+// Frontmatter (between the --- fences) runs at BUILD time only.
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Props a page can pass in. Both have sensible defaults so a page can set
+// neither, one, or both. `title` shows in the browser tab + OG; `description`
+// feeds the meta description + OG (recruiter discoverability).
+interface Props {
+	title?: string;
+	description?: string;
+	// `bare` skips the shared top Header/Footer so a page can own its whole body
+	// (the split-hub home renders its own left rail instead of the top nav).
+	bare?: boolean;
+}
+const {
+	title = "Tim Russell — Product Manager",
+	description = "Product manager who kept a B2C betting product shipping through two platform migrations, an IPO, and a $2B acquisition — case studies from theScore and PENN Entertainment.",
+	bare = false,
+} = Astro.props;
+
+// Absolute canonical URL for this page, built from `site` in astro.config.mjs.
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+
+		<!-- Open Graph (link previews on LinkedIn/Slack/etc.) -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonical} />
+
+		<!-- Fonts: Space Grotesk (display) + DM Sans (body) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+	</head>
+	<body>
+		{!bare && <Header />}
+		{bare ? (
+			<slot />
+		) : (
+			<main>
+				<!-- Whatever a page puts between <Base> and </Base> renders here. -->
+				<slot />
+			</main>
+		)}
+		{!bare && <Footer />}
+	</body>
+</html>

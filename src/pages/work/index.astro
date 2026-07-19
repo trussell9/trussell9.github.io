@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { getCollection } from 'astro:content';
+
+// Every case study (featured or not), sorted by `order`.
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Work — Tim Russell" description="Selected product case studies from theScore and PENN Entertainment.">
+	<section class="container" style="padding-top: 3rem;">
+		<p class="section-title">Work</p>
+		<h1>Selected work</h1>
+		<p class="subhead" style="margin: 1rem 0 2rem;">Case studies from a decade building consumer products at theScore and PENN.</p>
+		<div class="work-grid">
+			{work.map((entry) => <WorkCard entry={entry} />)}
+		</div>
+	</section>
+</Base>

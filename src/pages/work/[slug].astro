@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+// getStaticPaths tells Astro which /work/[slug] pages to build — one per entry.
+// This runs at build time; each page is pre-rendered to static HTML.
+export async function getStaticPaths() {
+	const entries = await getCollection('work');
+	return entries.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+// render() turns the Markdown body into a <Content /> component we can drop in.
+const { Content } = await render(entry);
+const { title, summary, role, timeframe, team, skills } = entry.data;
+---
+<Base title={`${title} — Tim Russell`} description={summary}>
+	<article class="container case-study" style="padding-top: 3rem;">
+		<a class="back-link" href="/work">← All work</a>
+		<h1>{title}</h1>
+		<p class="subhead" style="margin-top: 1rem;">{summary}</p>
+
+		<div class="meta">
+			<span>{role}</span>
+			<span>· {timeframe}</span>
+			<span>· {team}</span>
+		</div>
+		<div class="meta" style="margin-top: 0.5rem;">
+			{skills.map((s) => <span class="tag">{s}</span>)}
+		</div>
+
+		<div class="prose" style="margin-top: 2rem;">
+			<Content />
+		</div>
+	</article>
+</Base>
