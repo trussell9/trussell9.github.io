@@ -1,0 +1,46 @@
+name: Deploy to GitHub Pages
+
+# Build and publish the site on every push to main. workflow_dispatch adds a
+# "Run workflow" button in the Actions tab for re-deploying without a commit.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Least-privilege permissions for this workflow's token:
+#   contents: read  -> clone the repo
+#   pages: write    -> publish to GitHub Pages
+#   id-token: write -> let deploy-pages prove the artifact came from this run
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. cancel-in-progress stays false so a running deploy
+# finishes rather than being killed halfway by a follow-up push.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v7
+      # Installs dependencies, runs `astro build`, and uploads dist/ as the
+      # Pages artifact. It picks the package manager by looking for a lockfile,
+      # which is why package-lock.json has to stay committed.
+      - name: Install, build, and upload your site
+        uses: withastro/action@v6
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
