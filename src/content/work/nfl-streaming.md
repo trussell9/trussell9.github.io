@@ -1,7 +1,7 @@
 ---
 title: "Shipped in-app NFL streaming and grew live wagering volume by $3M"
 label: "In-app NFL streaming"
-summary: "In-app NFL streaming on theScore Bet so users could watch and bet in one place — the main driver of a $3M YoY increase in live wagering volume."
+summary: "In-app NFL streaming on theScore Bet so users could watch and bet in one place. The main driver of a $3M YoY increase in live wagering volume."
 role: "Product Manager"
 timeframe: "2024–2026"
 team: "Engineering, Design, Data, streaming partners"
@@ -21,7 +21,9 @@ Product Manager for live betting and engagement on theScore Bet, owning the life
 
 ## What I did
 
-Shipped in-app NFL streaming so users could watch and bet in one place, then extended the live-betting experience with real-time visualizations for Golf and MMA.
+Shipped in-app NFL streaming so users could watch and bet in one place, delivered through an integration with Genius Sports' BetVision product. That meant running the work across Genius' product, engineering, and support teams alongside our own, keeping two organizations aligned on a launch tied to the NFL season calendar.
+
+I then extended the live-betting experience with real-time visualizations for Golf and MMA.
 
 ## Impact
 

@@ -42,16 +42,16 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
 			<section id="about">
 				<p class="section-title">About</p>
 				<div class="about">
-					<p>I've spent my whole career at one company — theScore — and I'm proud of that. The tenure came from leadership handing me newer, bigger challenges, which are exactly the problems I like most.</p>
-					<p>That's how I landed the projects at the centre of the company's strategy: rebuilding the Android app, then building the cross-app ecosystem between theScore's media and betting products — and steering that experience through an IPO, a $2B acquisition by PENN, and two U.S. platform migrations. Most recently I focused on theScore Bet, shipping live-betting features like in-app NFL streaming.</p>
-					<p>Now I'm after the next hard problem — ideally a consumer product where solving it also makes a real difference to the people on the other side.</p>
+					<p>I've spent my whole career at one company, theScore, and I'm proud of that. The tenure came from leadership handing me newer, bigger challenges, which are exactly the problems I like most.</p>
+					<p>That's how I landed the projects at the centre of the company's strategy: rebuilding the Android app, then building the cross-app ecosystem between theScore's media and betting products, then steering that experience through an IPO, a $2B acquisition by PENN, and two U.S. platform migrations. Most recently I focused on theScore Bet, shipping live-betting features like in-app NFL streaming.</p>
+					<p>Now I'm after the next hard problem, ideally a consumer product where solving it also makes a real difference to the people on the other side.</p>
 				</div>
 			</section>
 
 			<section id="work">
 				<p class="section-title">Selected work</p>
 				<h2>Turning strategic bets into shipped products.</h2>
-				<p class="subhead" style="margin: 0.75rem 0 2rem;">Four projects — through platform change, launches, and discovery.</p>
+				<p class="subhead" style="margin: 0.75rem 0 2rem;">Four projects across platform change, launches, and discovery.</p>
 				<div class="work-grid">
 					{featured.map((entry) => <WorkCard entry={entry} />)}
 				</div>

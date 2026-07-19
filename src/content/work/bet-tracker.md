@@ -13,7 +13,7 @@ links: []
 
 ## Context
 
-User research and cluster analysis surfaced a clear pattern: after placing a bet, users were already returning to theScore's matchup pages to informally follow how their bet was trending — with no existing feature helping them do it, and no comparable product on the market.
+User research and cluster analysis surfaced a clear pattern: after placing a bet, users were already returning to theScore's matchup pages to informally follow how their bet was trending, with no existing feature helping them do it and no comparable product on the market.
 
 ## My role
 
@@ -21,7 +21,7 @@ Product Manager driving discovery and delivery, using cluster analysis and user 
 
 ## What I did
 
-Designed an interactive feature embedded in theScore's matchup pages that showed users how their active bets were trending in real time, based on live game state — turning a behavior users were already doing manually into a first-class product experience.
+Designed an interactive feature embedded in theScore's matchup pages that showed users how their active bets were trending in real time, based on live game state. It turned a behavior users were already doing manually into a first-class product experience.
 
 ## Impact
 
@@ -29,4 +29,4 @@ Held matchup page views and feature retention above **60%**, plus a significant 
 
 ## Key learnings
 
-The strongest opportunities were often already visible in how users were behaving — the product's job was to formalize a habit, not invent one.
+The strongest opportunities were often already visible in how users were behaving. The product's job was to formalize a habit, not invent one.
