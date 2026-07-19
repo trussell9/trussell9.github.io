@@ -12,21 +12,33 @@ const work = defineCollection({
 	// helper that makes `cover` image-ready: when you add a screenshot later,
 	// set `cover: ./foo.png` (relative to the .md file) and Astro optimizes it.
 	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			label: z.string().optional(),          // short card label; falls back to title
-			summary: z.string(),
-			role: z.string(),
-			timeframe: z.string(),
-			team: z.string(),
-			skills: z.array(z.string()),
-			featured: z.boolean().default(false), // true = shown on the home page
-			order: z.number(),                     // sort order (low = first)
-			cover: image().optional(),             // omit until you have a screenshot
-			links: z
-				.array(z.object({ label: z.string(), url: z.string().url() }))
-				.default([]),
-		}),
+		z
+			.object({
+				title: z.string(),
+				label: z.string().optional(),          // short card label; falls back to title
+				summary: z.string(),
+				role: z.string(),
+				timeframe: z.string(),
+				team: z.string(),
+				skills: z.array(z.string()),
+				featured: z.boolean().default(false), // true = shown on the home page
+				order: z.number(),                     // sort order (low = first)
+				// Shown at the top of the case-study page (not on the cards).
+				// Put the file in src/assets/work/ and reference it relative to
+				// this .md file, e.g. cover: ../../assets/work/bet-tracker.webp
+				cover: image().optional(),
+				coverAlt: z.string().optional(),       // required whenever cover is set
+				links: z
+					.array(z.object({ label: z.string(), url: z.string().url() }))
+					.default([]),
+			})
+			// An image with no alt text is invisible to screen readers and to anyone
+			// whose image fails to load. Failing the build is kinder than shipping it:
+			// the mistake surfaces now rather than never.
+			.refine((data) => !data.cover || Boolean(data.coverAlt), {
+				message: 'coverAlt is required when cover is set — describe what the image shows.',
+				path: ['coverAlt'],
+			}),
 });
 
 export const collections = { work };

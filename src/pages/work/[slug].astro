@@ -1,6 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
+// <Image> emits width/height (so the page doesn't jump as it loads), converts to
+// a modern format, and generates the responsive sizes listed below.
+import { Image } from 'astro:assets';
 
 // getStaticPaths tells Astro which /work/[slug] pages to build — one per entry.
 // This runs at build time; each page is pre-rendered to static HTML.
@@ -15,7 +18,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 // render() turns the Markdown body into a <Content /> component we can drop in.
 const { Content } = await render(entry);
-const { title, summary, role, timeframe, team, skills } = entry.data;
+const { title, summary, role, timeframe, team, skills, cover, coverAlt } = entry.data;
 ---
 <Base title={`${title} — Tim Russell`} description={summary} active="work">
 	<article class="case-study">
@@ -31,6 +34,12 @@ const { title, summary, role, timeframe, team, skills } = entry.data;
 		<div class="meta" style="margin-top: 0.5rem;">
 			{skills.map((s) => <span class="tag">{s}</span>)}
 		</div>
+
+		{cover && (
+			<figure class="case-cover">
+				<Image src={cover} alt={coverAlt!} widths={[400, 800, 1200]} sizes="(max-width: 900px) 100vw, 656px" />
+			</figure>
+		)}
 
 		<div class="prose" style="margin-top: 2rem;">
 			<Content />

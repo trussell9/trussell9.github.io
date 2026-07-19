@@ -373,6 +373,22 @@ section { padding-block: 4rem; }
 }
 
 /* ---- Case-study detail ---- */
+/* Cover image sits between the meta block and the article body. Bordered and
+   rounded to match the cards, so a screenshot reads as part of the page rather
+   than something pasted on top of it. */
+.case-cover { margin-top: 2rem; }
+.case-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.case-cover figcaption {
+  margin-top: 0.6rem;
+  color: var(--muted-foreground);
+  font-size: 0.85rem;
+}
 .case-study { max-width: 46rem; }
 .case-study .meta { color: var(--muted-foreground); font-size: 0.9rem; margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
 .prose h2 { margin-top: 2rem; margin-bottom: 0.5rem; font-size: 1.4rem; }
