@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-// Web résumé — summary-level, and deliberately standalone: no PDF is offered
-// yet. To add one later, drop the file in public/ and link a download button.
+// Web résumé — summary-level mirror of the downloadable PDF in public/.
+// Keep the two in sync: if the PDF changes, update this page to match.
 ---
 <Base title="Résumé — Tim Russell" description="Tim Russell — Product Manager. 12 years at theScore / PENN Entertainment.">
 	<section class="container resume" style="padding-top: 3rem; max-width: 46rem;">
@@ -12,6 +12,10 @@ import Base from '../layouts/Base.astro';
 			<a href="https://linkedin.com/in/timrrussell" target="_blank" rel="noopener">LinkedIn</a>
 		</p>
 		<p style="margin-top: 1rem; color: var(--muted-foreground);">6+ years in Product, 12 years total at theScore / PENN Entertainment. B2C mobile products across sports, media, and betting.</p>
+
+		<p style="margin-top: 1.5rem;">
+			<a class="btn btn-primary" href="/Tim-Russell-Product-Manager.pdf" download>Download résumé (PDF)</a>
+		</p>
 
 		<h2>Experience</h2>
 		<div class="role">
