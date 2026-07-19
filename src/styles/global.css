@@ -329,7 +329,11 @@ section { padding-block: 4rem; }
 .rail-nav a.active .nav-line { width: 52px; background: var(--accent); }
 .rail-nav a.active { color: var(--foreground); }
 
+/* The photo doubles as the home link now that the rail is on every page. */
+.rail-identity { display: block; width: fit-content; }
+.rail-identity:hover { text-decoration: none; }
 .rail-links { margin-top: auto; padding-top: 2.5rem; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.rail-links a.active { color: var(--accent); }
 .rail-links a { color: var(--muted-foreground); font-size: 0.9rem; }
 .rail-links a:hover { color: var(--foreground); }
 
@@ -354,6 +358,18 @@ section { padding-block: 4rem; }
   .rail-nav { flex-direction: row; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.75rem; }
   .rail-links { margin-top: 1.75rem; padding-top: 0; }
   .hub-content { max-width: none; width: 100%; padding: 1rem 1.5rem 3rem; }
+
+  /* On the home page the stacked rail IS the introduction, so it earns the
+     space. On subpages it is only navigation, and a full-height rail would
+     push the article most of a phone screen down. Trim it to the essentials. */
+  .hub--sub .hub-rail { padding-top: 1.5rem; }
+  .hub--sub .rail-photo { width: 56px; height: 56px; margin-bottom: 1rem; }
+  .hub--sub .rail-name { font-size: 1.75rem; margin-bottom: 0; }
+  .hub--sub .rail-role,
+  .hub--sub .rail-tagline,
+  .hub--sub .rail-location { display: none; }
+  .hub--sub .rail-nav { margin-top: 1.25rem; }
+  .hub--sub .rail-links { margin-top: 1.25rem; }
 }
 
 /* ---- Case-study detail ---- */

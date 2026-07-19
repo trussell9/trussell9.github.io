@@ -1,0 +1,46 @@
+---
+// Rail.astro — the sticky left identity column. Rendered by Base.astro on every
+// page, so navigation stays in the same place wherever the reader lands.
+interface Props {
+	// On the home page the section links are same-page anchors (#about). Everywhere
+	// else they have to travel home first (/#about), or they point at nothing.
+	home?: boolean;
+	// Which item to mark as current, e.g. "work" on /work and /work/[slug].
+	// The home page leaves this unset: its scroll-spy script sets active on scroll.
+	active?: string;
+}
+const { home = false, active } = Astro.props;
+
+const sections = [
+	{ id: 'about', label: 'About' },
+	{ id: 'work', label: 'Work' },
+	{ id: 'skills', label: 'Skills' },
+	{ id: 'contact', label: 'Contact' },
+];
+const href = (id: string) => (home ? `#${id}` : `/#${id}`);
+---
+<aside class="hub-rail">
+	<div class="rail-inner">
+		<a class="rail-identity" href="/" aria-label="Home">
+			<img class="rail-photo" src="/tim.webp" width="800" height="800" alt="Tim Russell" />
+		</a>
+		<p class="rail-role">Product Manager</p>
+		<p class="rail-name">Tim Russell</p>
+		<p class="rail-tagline">I ship consumer products through the hard parts.</p>
+		<p class="rail-location">Toronto, Canada</p>
+
+		<nav class="rail-nav" aria-label="Sections">
+			{sections.map((s) => (
+				<a href={href(s.id)} class={active === s.id ? 'active' : undefined}>
+					<span class="nav-line"></span>{s.label}
+				</a>
+			))}
+		</nav>
+
+		<div class="rail-links">
+			<a href="mailto:tim.russell57@gmail.com">Email</a>
+			<a href="https://linkedin.com/in/timrrussell" target="_blank" rel="noopener">LinkedIn</a>
+			<a href="/resume" class={active === 'resume' ? 'active' : undefined}>Résumé</a>
+		</div>
+	</div>
+</aside>

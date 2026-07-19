@@ -2,23 +2,24 @@
 // Base.astro — the shared layout every page reuses.
 // Frontmatter (between the --- fences) runs at BUILD time only.
 import '../styles/global.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Rail from '../components/Rail.astro';
 
-// Props a page can pass in. Both have sensible defaults so a page can set
-// neither, one, or both. `title` shows in the browser tab + OG; `description`
+// Props a page can pass in. All have sensible defaults so a page can set
+// none, some, or all. `title` shows in the browser tab + OG; `description`
 // feeds the meta description + OG (recruiter discoverability).
 interface Props {
 	title?: string;
 	description?: string;
-	// `bare` skips the shared top Header/Footer so a page can own its whole body
-	// (the split-hub home renders its own left rail instead of the top nav).
-	bare?: boolean;
+	// `home` switches the rail's section links between same-page anchors and
+	// links back to the home page. `active` marks the current nav item.
+	home?: boolean;
+	active?: string;
 }
 const {
 	title = "Tim Russell — Product Manager",
 	description = "Product manager who kept a B2C betting product shipping through two platform migrations, an IPO, and a $2B acquisition — case studies from theScore and PENN Entertainment.",
-	bare = false,
+	home = false,
+	active,
 } = Astro.props;
 
 // Absolute canonical URL for this page, built from `site` in astro.config.mjs.
@@ -48,15 +49,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 	</head>
 	<body>
-		{!bare && <Header />}
-		{bare ? (
-			<slot />
-		) : (
-			<main>
+		<!-- Split hub on every page: a sticky left identity rail beside a scrolling
+		     content column, so navigation never changes shape between pages. -->
+		<div class:list={['hub', !home && 'hub--sub']}>
+			<Rail home={home} active={active} />
+			<main class="hub-content">
 				<!-- Whatever a page puts between <Base> and </Base> renders here. -->
 				<slot />
 			</main>
-		)}
-		{!bare && <Footer />}
+		</div>
 	</body>
 </html>

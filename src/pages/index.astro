@@ -9,87 +9,60 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
 	(a, b) => a.data.order - b.data.order,
 );
 ---
-<!-- `bare` = skip the shared top Header/Footer; this page renders its own layout:
-     a sticky left identity rail + a scrolling right content column ("split hub"). -->
-<Base bare>
-	<div class="hub">
-		<!-- Left identity rail (sticky on desktop) -->
-		<aside class="hub-rail">
-			<div class="rail-inner">
-				<img class="rail-photo" src="/tim.webp" width="800" height="800" alt="Tim Russell" />
-				<p class="rail-role">Product Manager</p>
-				<p class="rail-name">Tim Russell</p>
-				<p class="rail-tagline">I ship consumer products through the hard parts.</p>
-				<p class="rail-location">Toronto, Canada</p>
+<!-- `home` tells the shared rail to use same-page anchors (#about) rather than
+     links back to the home page, and pairs with the scroll-spy script below.
+     The rail and hub shell itself live in Base.astro, on every page. -->
+<Base home>
+	<section id="about">
+		<p class="section-title">About</p>
+		<div class="about">
+			<p>I've spent my whole career at one company, theScore, and I'm proud of that. The tenure came from leadership handing me newer, bigger challenges, which are exactly the problems I like most.</p>
+			<p>That's how I landed the projects at the centre of the company's strategy: rebuilding the Android app, then building the cross-app ecosystem between theScore's media and betting products, then steering that experience through an IPO, a $2B acquisition by PENN, and two U.S. platform migrations. Most recently I focused on theScore Bet, shipping live-betting features like in-app NFL streaming.</p>
+			<p>Now I'm after the next hard problem, ideally a consumer product where solving it also makes a real difference to the people on the other side.</p>
+		</div>
+	</section>
 
-				<nav class="rail-nav" aria-label="Sections">
-					<a href="#about"><span class="nav-line"></span>About</a>
-					<a href="#work"><span class="nav-line"></span>Work</a>
-					<a href="#skills"><span class="nav-line"></span>Skills</a>
-					<a href="#contact"><span class="nav-line"></span>Contact</a>
-				</nav>
+	<section id="work">
+		<p class="section-title">Selected work</p>
+		<h2>Turning strategic bets into shipped products.</h2>
+		<p class="subhead" style="margin: 0.75rem 0 2rem;">Four projects across platform change, launches, and discovery.</p>
+		<div class="work-grid">
+			{featured.map((entry) => <WorkCard entry={entry} />)}
+		</div>
+		<p style="margin-top: 1.5rem;"><a href="/work">See all work →</a></p>
+	</section>
 
-				<div class="rail-links">
-					<a href="mailto:tim.russell57@gmail.com">Email</a>
-					<a href="https://linkedin.com/in/timrrussell" target="_blank" rel="noopener">LinkedIn</a>
-					<a href="/resume">Résumé</a>
-				</div>
+	<section id="skills">
+		<p class="section-title">Skills</p>
+		<div class="skills-groups">
+			<div class="skill-group">
+				<h3>Strategy &amp; Discovery</h3>
+				<p>Product Strategy · Roadmapping · AI-Assisted Discovery</p>
 			</div>
-		</aside>
+			<div class="skill-group">
+				<h3>Delivery &amp; Growth</h3>
+				<p>A/B Testing · Growth &amp; Retention · GTM &amp; Launch Sequencing</p>
+			</div>
+			<div class="skill-group">
+				<h3>Scale &amp; Systems</h3>
+				<p>App Migrations · Integrations &amp; Ecosystem · Cross-Functional Alignment</p>
+			</div>
+		</div>
+	</section>
 
-		<!-- Right content column -->
-		<main class="hub-content">
-			<section id="about">
-				<p class="section-title">About</p>
-				<div class="about">
-					<p>I've spent my whole career at one company, theScore, and I'm proud of that. The tenure came from leadership handing me newer, bigger challenges, which are exactly the problems I like most.</p>
-					<p>That's how I landed the projects at the centre of the company's strategy: rebuilding the Android app, then building the cross-app ecosystem between theScore's media and betting products, then steering that experience through an IPO, a $2B acquisition by PENN, and two U.S. platform migrations. Most recently I focused on theScore Bet, shipping live-betting features like in-app NFL streaming.</p>
-					<p>Now I'm after the next hard problem, ideally a consumer product where solving it also makes a real difference to the people on the other side.</p>
-				</div>
-			</section>
-
-			<section id="work">
-				<p class="section-title">Selected work</p>
-				<h2>Turning strategic bets into shipped products.</h2>
-				<p class="subhead" style="margin: 0.75rem 0 2rem;">Four projects across platform change, launches, and discovery.</p>
-				<div class="work-grid">
-					{featured.map((entry) => <WorkCard entry={entry} />)}
-				</div>
-				<p style="margin-top: 1.5rem;"><a href="/work">See all work →</a></p>
-			</section>
-
-			<section id="skills">
-				<p class="section-title">Skills</p>
-				<div class="skills-groups">
-					<div class="skill-group">
-						<h3>Strategy &amp; Discovery</h3>
-						<p>Product Strategy · Roadmapping · AI-Assisted Discovery</p>
-					</div>
-					<div class="skill-group">
-						<h3>Delivery &amp; Growth</h3>
-						<p>A/B Testing · Growth &amp; Retention · GTM &amp; Launch Sequencing</p>
-					</div>
-					<div class="skill-group">
-						<h3>Scale &amp; Systems</h3>
-						<p>App Migrations · Integrations &amp; Ecosystem · Cross-Functional Alignment</p>
-					</div>
-				</div>
-			</section>
-
-			<section id="contact">
-				<p class="section-title">Contact</p>
-				<h2>Let's talk.</h2>
-				<p class="subhead" style="margin: 0.75rem 0 1.5rem;">Open to Product Manager / Senior PM roles. I'm drawn to products with real utility at companies that care about the people they build for. Remote or hybrid, US &amp; Canada.</p>
-				<div class="cta">
-					<a class="btn btn-primary" href="mailto:tim.russell57@gmail.com">Email me</a>
-					<a class="btn btn-secondary" href="https://linkedin.com/in/timrrussell" target="_blank" rel="noopener">Connect on LinkedIn</a>
-				</div>
-			</section>
-		</main>
-	</div>
+	<section id="contact">
+		<p class="section-title">Contact</p>
+		<h2>Let's talk.</h2>
+		<p class="subhead" style="margin: 0.75rem 0 1.5rem;">Open to Product Manager / Senior PM roles. I'm drawn to products with real utility at companies that care about the people they build for. Remote or hybrid, US &amp; Canada.</p>
+		<div class="cta">
+			<a class="btn btn-primary" href="mailto:tim.russell57@gmail.com">Email me</a>
+			<a class="btn btn-secondary" href="https://linkedin.com/in/timrrussell" target="_blank" rel="noopener">Connect on LinkedIn</a>
+		</div>
+	</section>
 
 	<!-- Scroll-spy: highlight the rail nav link for the section currently in view.
-	     Picks the last section whose top has passed 35% down the viewport. -->
+	     Picks the last section whose top has passed 35% down the viewport.
+	     Home-only, since it's the only page with in-page section anchors. -->
 	<script>
 		const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.rail-nav a'));
 		const sections = Array.from(document.querySelectorAll<HTMLElement>('.hub-content section[id]'));
