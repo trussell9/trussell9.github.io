@@ -5,7 +5,7 @@ summary: "An interactive feature showing users how their active bets were trendi
 role: "Product Manager"
 timeframe: "2022–2024"
 team: "Engineering, Design, Data/Research"
-skills: ["AI-Assisted Discovery", "Growth & Retention", "Product Strategy"]
+skills: ["User Research", "Growth & Retention", "Product Strategy"]
 featured: true
 order: 3
 links: []

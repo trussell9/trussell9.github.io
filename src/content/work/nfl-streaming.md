@@ -1,7 +1,7 @@
 ---
-title: "Shipped in-app NFL streaming and grew live handle by $3M"
+title: "Shipped in-app NFL streaming and grew live wagering volume by $3M"
 label: "In-app NFL streaming"
-summary: "In-app NFL streaming on theScore Bet so users could watch and bet in one place — the main driver of a $3M YoY increase in live handle."
+summary: "In-app NFL streaming on theScore Bet so users could watch and bet in one place — the main driver of a $3M YoY increase in live wagering volume."
 role: "Product Manager"
 timeframe: "2024–2026"
 team: "Engineering, Design, Data, streaming partners"
@@ -25,4 +25,4 @@ Shipped in-app NFL streaming so users could watch and bet in one place, then ext
 
 ## Impact
 
-NFL streaming drove a **$3M year-over-year increase in live handle**, and the Golf and MMA visualizations increased the cohort of live bettors for each sport.
+NFL streaming drove a **$3M year-over-year increase in live wagering volume**, and the Golf and MMA visualizations increased the cohort of live bettors for each sport.

@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-// Web résumé — mirrors the PDF. NOTE: content is summary-level until Tim
-// supplies the real resume PDF (drop it in public/ and wire the download link).
+// Web résumé — summary-level, and deliberately standalone: no PDF is offered
+// yet. To add one later, drop the file in public/ and link a download button.
 ---
 <Base title="Résumé — Tim Russell" description="Tim Russell — Product Manager. 12 years at theScore / PENN Entertainment.">
 	<section class="container resume" style="padding-top: 3rem; max-width: 46rem;">
@@ -36,6 +36,5 @@ import Base from '../layouts/Base.astro';
 		<h2>Education</h2>
 		<p>Advanced Product Management Certificate — Product Faculty (2021)<br />Bachelor of Journalism — Toronto Metropolitan University (2010)</p>
 
-		<p style="margin-top: 2rem; color: var(--muted-foreground); font-size: 0.9rem;">A downloadable PDF version will be linked here once finalized.</p>
 	</section>
 </Base>
