@@ -1,6 +1,6 @@
 ---
 title: "Kept a live ecosystem product shipping through two platform migrations"
-label: "Two platform migrations"
+label: "theScore Bet → Barstool → ESPN Bet"
 summary: "Owned the full product lifecycle for theScore's ecosystem product through two consecutive rebrands (theScore Bet to Barstool Sportsbook to ESPN Bet) without disrupting the live user base."
 role: "Product Manager"
 timeframe: "2022–2026"

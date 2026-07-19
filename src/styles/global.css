@@ -192,10 +192,21 @@ section { padding-block: 4rem; }
 .btn-secondary:hover { text-decoration: none; border-color: var(--accent); }
 
 /* ---- Work grid + cards ---- */
+/* Fixed 2-up grid so four studies read as a deliberate 2x2 block, rather than
+   auto-fit deciding the column count from whatever width is available. The
+   future AI-projects section reuses this same grid. */
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
+}
+/* Card summaries vary in length; clamping to 3 lines keeps the rows even so
+   the grid reads as a block. Full summary still shows on the case-study page. */
+.work-card .summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .work-card {
   display: block;
@@ -323,7 +334,9 @@ section { padding-block: 4rem; }
 .rail-links a:hover { color: var(--foreground); }
 
 /* Right column — the scrolling content. */
-.hub-content { flex: 1 1 auto; max-width: 640px; padding: 4.5rem 2rem 5rem; }
+/* 720px (656px inside padding) gives the 2x2 work grid two ~316px cards with
+   room to breathe. At the old 640px the cards fell back to a single column. */
+.hub-content { flex: 1 1 auto; max-width: 720px; padding: 4.5rem 2rem 5rem; }
 .hub-content section { padding-block: 2.5rem; }
 .hub-content section:first-child { padding-top: 0; }
 
@@ -362,4 +375,8 @@ section { padding-block: 4rem; }
   .site-nav { gap: 1rem; font-size: 0.85rem; }
   section { padding-block: 3rem; }
   .hero { padding-block: 3rem 2rem; }
+  /* Two columns are unreadable at phone widths; stack the cards instead. */
+  .work-grid { grid-template-columns: 1fr; }
+  /* Stacked cards have the full width, so no need to clamp the summary. */
+  .work-card .summary { -webkit-line-clamp: none; overflow: visible; }
 }

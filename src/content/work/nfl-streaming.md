@@ -1,6 +1,6 @@
 ---
 title: "Shipped in-app NFL streaming and grew live wagering volume by $3M"
-label: "In-app NFL streaming"
+label: "NFL Streaming & BetVision"
 summary: "In-app NFL streaming on theScore Bet so users could watch and bet in one place. The main driver of a $3M YoY increase in live wagering volume."
 role: "Product Manager"
 timeframe: "2024–2026"

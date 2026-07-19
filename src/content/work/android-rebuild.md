@@ -1,6 +1,6 @@
 ---
 title: "Rebuilt theScore's Android app and lifted 30-day retention 7%"
-label: "Android rebuild"
+label: "theScore Android Rebuild"
 summary: "A ground-up rebuild of theScore's Android app, clearing the performance debt that was slowing releases and laying the foundation for the cross-app integrations with theScore Bet."
 role: "Product Manager"
 timeframe: "2020–2021"
