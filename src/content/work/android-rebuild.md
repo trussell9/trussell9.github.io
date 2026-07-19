@@ -29,7 +29,7 @@ For launch I wanted evidence before fully committing. We ran a beta on the new a
 
 ## Impact
 
-30-day retention improved by 7%, measured against the cohort still running the old app. The rebuild cleared the performance debt that had been slowing releases, and became the foundation the theScore and theScore Bet integrations were built on.
+30-day retention improved by 7%, measured against the cohort still running the old app. Delivery cycles improved by roughly 50% once the rebuild shipped, clearing the performance debt that had been slowing releases. The new foundation became what the theScore and theScore Bet integrations were built on.
 
 ## Key learnings
 
