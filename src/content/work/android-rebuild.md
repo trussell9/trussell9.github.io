@@ -1,7 +1,7 @@
 ---
 title: "Rebuilt theScore's Android app and lifted 30-day retention 7%"
 label: "theScore Android Rebuild"
-summary: "A ground-up rebuild of theScore's Android app, clearing the performance debt that was slowing releases and laying the foundation for the cross-app integrations with theScore Bet."
+summary: "A ground-up rebuild of theScore's 1.5M-user Android app, clearing the performance debt that was slowing releases and laying the foundation for the cross-app integrations with theScore Bet."
 role: "Product Manager"
 timeframe: "2020–2021"
 team: "10 engineers, Design, QA"
@@ -13,7 +13,7 @@ links: []
 
 ## Context
 
-theScore's Android app had accumulated enough performance debt to slow its own development. Release cycles were dragging, and the causes were structural rather than the kind of thing another round of fixes would clear.
+theScore's Android app, used by 1.5M people, had accumulated enough performance debt to slow its own development. Release cycles were dragging, and the causes were structural rather than the kind of thing another round of fixes would clear.
 
 A rebuild also set up what was coming next. theScore was moving into betting, and the cross-app integrations between theScore and theScore Bet would be far cheaper to build on a clean foundation than to retrofit onto the old one. Doing that groundwork upfront was part of the case for rebuilding rather than patching.
 

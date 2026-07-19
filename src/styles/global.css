@@ -369,6 +369,26 @@ section { padding-block: 4rem; }
 .resume h2 { margin-top: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; }
 .resume .role { margin-top: 1.25rem; }
 .resume .role .when { color: var(--muted-foreground); font-size: 0.9rem; }
+/* Download prompt. Carded and accent-bordered so it reads as an action rather
+   than another paragraph, since the PDF is the point of this page. */
+.resume-cta {
+  margin-top: 2rem;
+  padding: 1.25rem 1.5rem;
+  background-color: var(--card);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+/* Let the text block shrink so the button stays alongside it instead of being
+   pushed onto its own row when the copy runs long. */
+.resume-cta > div { flex: 1 1 16rem; }
+.resume-cta-title { font-family: var(--font-heading); font-weight: 600; }
+.resume-cta-note { color: var(--muted-foreground); font-size: 0.9rem; margin-top: 0.2rem; }
+.resume-cta .btn { flex-shrink: 0; }
 
 /* ---- Responsive ---- */
 @media (max-width: 640px) {
