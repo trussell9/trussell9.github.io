@@ -22,7 +22,17 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
 <aside class="hub-rail">
 	<div class="rail-inner">
 		<a class="rail-identity" href="/" aria-label="Home">
-			<img class="rail-photo" src="/tim.webp" width="800" height="800" alt="Tim Russell" />
+			<!-- transition:persist carries this exact node across navigations, so the
+			     photo is never re-created or re-decoded. It's the heaviest thing in
+			     the rail and the most visible when it flickers. -->
+			<img
+				class="rail-photo"
+				src="/tim.webp"
+				width="800"
+				height="800"
+				alt="Tim Russell"
+				transition:persist="rail-photo"
+			/>
 		</a>
 		<p class="rail-role">Product Manager</p>
 		<p class="rail-name">Tim Russell</p>
@@ -44,3 +54,50 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
 		</div>
 	</div>
 </aside>
+
+<script>
+	// Scroll-spy: highlight the rail nav link for the section currently in view.
+	// Picks the last section whose top has passed 35% down the viewport.
+	//
+	// This lives in the rail rather than on the home page because client-side
+	// routing only runs the scripts belonging to pages it has loaded. Sitting
+	// here, it is present wherever the reader navigates back to home from.
+	let teardown: (() => void) | null = null;
+
+	function initScrollSpy() {
+		const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.rail-nav a'));
+		const sections = Array.from(document.querySelectorAll<HTMLElement>('.hub-content section[id]'));
+		// Only the home page has in-page sections. Elsewhere the active item is
+		// set at build time, so there is nothing to track.
+		if (sections.length === 0) return;
+
+		function syncActive() {
+			const marker = window.scrollY + window.innerHeight * 0.35;
+			let current = sections[0]?.id;
+			for (const s of sections) {
+				if (s.getBoundingClientRect().top + window.scrollY <= marker) current = s.id;
+			}
+			for (const l of links) {
+				l.classList.toggle('active', l.getAttribute('href')!.slice(1) === current);
+			}
+		}
+
+		window.addEventListener('scroll', syncActive, { passive: true });
+		window.addEventListener('resize', syncActive);
+		syncActive();
+
+		teardown = () => {
+			window.removeEventListener('scroll', syncActive);
+			window.removeEventListener('resize', syncActive);
+		};
+	}
+
+	// Fires on the first load and again after every client-side navigation.
+	document.addEventListener('astro:page-load', initScrollSpy);
+	// Drop the listeners before the next page swaps in, so they don't stack up
+	// with one more copy on every navigation.
+	document.addEventListener('astro:before-swap', () => {
+		teardown?.();
+		teardown = null;
+	});
+</script>

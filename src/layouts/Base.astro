@@ -3,6 +3,7 @@
 // Frontmatter (between the --- fences) runs at BUILD time only.
 import '../styles/global.css';
 import Rail from '../components/Rail.astro';
+import { ClientRouter } from 'astro:transitions';
 
 // Props a page can pass in. All have sensible defaults so a page can set
 // none, some, or all. `title` shows in the browser tab + OG; `description`
@@ -47,6 +48,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+		<!-- Client-side routing: swap just the changed part of the document instead
+		     of tearing down and rebuilding the whole page on every navigation.
+		     Without it the rail is destroyed and re-created on each click. -->
+		<ClientRouter />
 	</head>
 	<body>
 		<!-- Split hub on every page: a sticky left identity rail beside a scrolling
