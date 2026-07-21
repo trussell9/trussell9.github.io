@@ -14,6 +14,19 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
 const pressOutlets = [
 	...new Set((await getCollection('press')).map((p) => p.data.outlet).filter(Boolean)),
 ];
+
+// Skills shown as a single combined set of pills (no category groupings).
+const skills = [
+	'Product Strategy',
+	'Roadmapping',
+	'AI-Assisted Discovery',
+	'A/B Testing',
+	'Growth & Retention',
+	'GTM & Launch Sequencing',
+	'App Migrations',
+	'Integrations & Ecosystem',
+	'Cross-Functional Alignment',
+];
 ---
 <!-- `home` tells the shared rail to use same-page anchors (#about) rather than
      links back to the home page, and pairs with the scroll-spy script below.
@@ -40,26 +53,15 @@ const pressOutlets = [
 
 	<section id="skills">
 		<p class="section-title">Skills</p>
-		<div class="skills-groups">
-			<div class="skill-group">
-				<h3>Strategy &amp; Discovery</h3>
-				<p>Product Strategy · Roadmapping · AI-Assisted Discovery</p>
-			</div>
-			<div class="skill-group">
-				<h3>Delivery &amp; Growth</h3>
-				<p>A/B Testing · Growth &amp; Retention · GTM &amp; Launch Sequencing</p>
-			</div>
-			<div class="skill-group">
-				<h3>Scale &amp; Systems</h3>
-				<p>App Migrations · Integrations &amp; Ecosystem · Cross-Functional Alignment</p>
-			</div>
+		<div class="skill-pills">
+			{skills.map((s) => <span class="tag">{s}</span>)}
 		</div>
 	</section>
 
 	<section id="press">
 		<p class="section-title">Press</p>
 		<h2>In the news.</h2>
-		<p class="subhead" style="margin: 0.75rem 0 1.5rem;">The products I've shipped have been covered across platform migrations, live streaming, and the Ontario launch.</p>
+		<p class="subhead" style="margin: 0.75rem 0 1.5rem;">The products I've shipped have been covered across platform migrations, the Android rebuild, and the Ontario launch.</p>
 		<div class="press-outlets">
 			{pressOutlets.map((outlet) => <span class="tag">{outlet}</span>)}
 		</div>

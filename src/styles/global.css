@@ -292,9 +292,8 @@ section { padding-block: 4rem; }
 /* ---- About / Skills ---- */
 .about { max-width: 62ch; }
 .about p + p { margin-top: 1rem; }
-.skills-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-.skill-group h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-.skill-group p { color: var(--muted-foreground); font-size: 0.95rem; }
+.skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.skill-pills .tag { font-size: 0.85rem; padding: 0.35rem 0.9rem; }
 
 /* ============================================================
    Split hub (home page only) — sticky left identity rail +

@@ -11,20 +11,19 @@ interface Props {
 }
 const { home = false, active } = Astro.props;
 
-// In-page sections of the home page. Their links are anchors, and the scroll-spy
-// script highlights them as the reader scrolls.
-const sections = [
-	{ id: 'about', label: 'About' },
-	{ id: 'work', label: 'Work' },
-	{ id: 'skills', label: 'Skills' },
-	{ id: 'contact', label: 'Contact' },
-];
-// Standalone pages (not home-page sections). They always link to a real route, and
-// their active state is set at build time via the `active` prop — the scroll-spy
-// only tracks in-page sections, so it leaves these alone. Résumé stays down in the
-// links row (below) instead — it's reachable from the Contact section too.
-const pages = [
-	{ href: '/press', key: 'press', label: 'Press' },
+// The primary nav, in display order. Most items are in-page sections of the home
+// page (anchor links the scroll-spy highlights on scroll). Press is a standalone
+// route — it carries its own `href`, and its active state is set at build time via
+// the `active` prop (the scroll-spy only tracks in-page sections, so it leaves the
+// page link alone). It sits between Skills and Contact to match the home page's
+// own scroll order, where the #press hook precedes #contact. Résumé stays down in
+// the links row (below) — it's reachable from the Contact section too.
+const nav: { key: string; label: string; href?: string }[] = [
+	{ key: 'about', label: 'About' },
+	{ key: 'work', label: 'Work' },
+	{ key: 'skills', label: 'Skills' },
+	{ key: 'press', label: 'Press', href: '/press' },
+	{ key: 'contact', label: 'Contact' },
 ];
 const href = (id: string) => (home ? `#${id}` : `/#${id}`);
 ---
@@ -49,14 +48,9 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
 		<p class="rail-location">Toronto, Canada</p>
 
 		<nav class="rail-nav" aria-label="Primary">
-			{sections.map((s) => (
-				<a href={href(s.id)} class={active === s.id ? 'active' : undefined}>
-					<span class="nav-line"></span>{s.label}
-				</a>
-			))}
-			{pages.map((p) => (
-				<a href={p.href} class={active === p.key ? 'active' : undefined}>
-					<span class="nav-line"></span>{p.label}
+			{nav.map((item) => (
+				<a href={item.href ?? href(item.key)} class={active === item.key ? 'active' : undefined}>
+					<span class="nav-line"></span>{item.label}
 				</a>
 			))}
 		</nav>
