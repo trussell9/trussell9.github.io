@@ -4,5 +4,6 @@ blurb: "theScore debuted an integrated sportsbook and online casino in its home 
 outlet: "iGaming Future"
 url: "https://igamingfuture.com/thescore-bet-online-sportsbook-and-icasino-debuts-in-ontario/"
 date: "April 2022"
+category: "Ontario Launch"
 order: 50
 ---

@@ -4,5 +4,6 @@ blurb: "Built on the technology PENN acquired with theScore, the migration moved
 outlet: "PENN Entertainment"
 url: "https://investors.pennentertainment.com/news-releases/news-release-details/penn-entertainment-completes-migration-barstool-sportsbook"
 date: "July 2023"
+category: "Platform Migrations"
 order: 20
 ---

@@ -11,11 +11,20 @@ interface Props {
 }
 const { home = false, active } = Astro.props;
 
+// In-page sections of the home page. Their links are anchors, and the scroll-spy
+// script highlights them as the reader scrolls.
 const sections = [
 	{ id: 'about', label: 'About' },
 	{ id: 'work', label: 'Work' },
 	{ id: 'skills', label: 'Skills' },
 	{ id: 'contact', label: 'Contact' },
+];
+// Standalone pages (not home-page sections). They always link to a real route, and
+// their active state is set at build time via the `active` prop — the scroll-spy
+// only tracks in-page sections, so it leaves these alone. Résumé stays down in the
+// links row (below) instead — it's reachable from the Contact section too.
+const pages = [
+	{ href: '/press', key: 'press', label: 'Press' },
 ];
 const href = (id: string) => (home ? `#${id}` : `/#${id}`);
 ---
@@ -39,10 +48,15 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
 		<p class="rail-tagline">I ship consumer products through the hard parts.</p>
 		<p class="rail-location">Toronto, Canada</p>
 
-		<nav class="rail-nav" aria-label="Sections">
+		<nav class="rail-nav" aria-label="Primary">
 			{sections.map((s) => (
 				<a href={href(s.id)} class={active === s.id ? 'active' : undefined}>
 					<span class="nav-line"></span>{s.label}
+				</a>
+			))}
+			{pages.map((p) => (
+				<a href={p.href} class={active === p.key ? 'active' : undefined}>
+					<span class="nav-line"></span>{p.label}
 				</a>
 			))}
 		</nav>
@@ -50,7 +64,6 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
 		<div class="rail-links">
 			<a href="mailto:tim.russell57@gmail.com">Email</a>
 			<a href="https://linkedin.com/in/timrrussell" target="_blank" rel="noopener">LinkedIn</a>
-			<a href="/press" class={active === 'press' ? 'active' : undefined}>Press</a>
 			<a href="/resume" class={active === 'resume' ? 'active' : undefined}>Résumé</a>
 		</div>
 	</div>

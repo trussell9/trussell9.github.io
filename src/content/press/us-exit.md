@@ -4,5 +4,6 @@ blurb: "theScore Bet wound down its US sportsbook to concentrate on Canada, clea
 outlet: "iGaming Business"
 url: "https://igamingbusiness.com/strategy/thescore-to-exit-us/"
 date: "June 2022"
+category: "Platform Migrations"
 order: 30
 ---

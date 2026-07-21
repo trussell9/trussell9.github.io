@@ -79,14 +79,18 @@ a:hover { text-decoration: underline; }
   padding-inline: 1.5rem;
 }
 section { padding-block: 4rem; }
+/* One section-header style site-wide: teal Space Grotesk label with a divider.
+   Used for the home-page section eyebrows and the /press category headers. */
 .section-title {
-  color: var(--muted-foreground);
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.8rem;
-  font-family: var(--font-body);
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
 }
 .subhead { color: var(--muted-foreground); font-size: clamp(1.05rem, 2vw, 1.3rem); }
 
@@ -230,7 +234,12 @@ section { padding-block: 4rem; }
 .work-card .summary { color: var(--muted-foreground); font-size: 0.95rem; }
 
 /* Press — a stacked list of pull-quote callouts, each in a card. */
+/* Themed press sections. The category header reuses .section-title (teal label +
+   divider); this just sets the spacing between one group and the next. */
+.press-group + .press-group { margin-top: 3rem; }
 .press-list { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; }
+/* Outlet pills on the home-page Press hook. */
+.press-outlets { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .press-item {
   background-color: var(--card);
   border: 1px solid var(--border);

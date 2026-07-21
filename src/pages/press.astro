@@ -2,8 +2,23 @@
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
-// Every press callout, sorted by `order`.
+// The order the category sections appear in on the page. Any category that shows
+// up in the content but isn't listed here falls to the bottom (below), so a typo
+// in a file's `category` never silently hides a callout — it just sorts last.
+const categoryOrder = ['Platform Migrations', 'Live Betting & Streaming', 'Ontario Launch', 'Android Rebuild'];
+
+// Every callout, sorted by `order` within its category.
 const press = (await getCollection('press')).sort((a, b) => a.data.order - b.data.order);
+
+// Categories that appear in the content but aren't in categoryOrder, first-seen order.
+const extraCategories = [...new Set(press.map((p) => p.data.category))].filter(
+	(c) => !categoryOrder.includes(c),
+);
+
+// Build the groups in display order, dropping any category with no entries.
+const groups = [...categoryOrder, ...extraCategories]
+	.map((category) => ({ category, items: press.filter((p) => p.data.category === category) }))
+	.filter((g) => g.items.length > 0);
 ---
 <Base title="Press — Tim Russell" description="Key callouts from press releases and news coverage of Tim Russell's product work." active="press">
 	<section>
@@ -11,25 +26,30 @@ const press = (await getCollection('press')).sort((a, b) => a.data.order - b.dat
 		<h1>In the news</h1>
 		<p class="subhead" style="margin: 1rem 0 2rem;">Callouts from press releases and coverage of the products I've shipped.</p>
 
-		<ul class="press-list">
-			{press.map((item) => (
-				<li class="press-item">
-					<h2 class="press-headline">{item.data.headline}</h2>
-					<p class="press-blurb">{item.data.blurb}</p>
-					{item.data.quote && <blockquote class="press-quote">{item.data.quote}</blockquote>}
-					{(item.data.outlet || item.data.date) && (
-						<p class="press-source">
-							{item.data.url ? (
-								<a href={item.data.url} target="_blank" rel="noopener">{item.data.outlet}</a>
-							) : (
-								item.data.outlet
+		{groups.map((group) => (
+			<div class="press-group">
+				<h2 class="section-title">{group.category}</h2>
+				<ul class="press-list">
+					{group.items.map((item) => (
+						<li class="press-item">
+							<h3 class="press-headline">{item.data.headline}</h3>
+							<p class="press-blurb">{item.data.blurb}</p>
+							{item.data.quote && <blockquote class="press-quote">{item.data.quote}</blockquote>}
+							{(item.data.outlet || item.data.date) && (
+								<p class="press-source">
+									{item.data.url ? (
+										<a href={item.data.url} target="_blank" rel="noopener">{item.data.outlet}</a>
+									) : (
+										item.data.outlet
+									)}
+									{item.data.outlet && item.data.date && <span class="press-dot"> · </span>}
+									{item.data.date}
+								</p>
 							)}
-							{item.data.outlet && item.data.date && <span class="press-dot"> · </span>}
-							{item.data.date}
-						</p>
-					)}
-				</li>
-			))}
-		</ul>
+						</li>
+					))}
+				</ul>
+			</div>
+		))}
 	</section>
 </Base>

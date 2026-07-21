@@ -42,11 +42,12 @@ const work = defineCollection({
 			}),
 });
 
-// The `press` collection: one Markdown file per callout. Each is a short pull
-// quote from a press release or news article. `quote` is the only required
-// field; `outlet`/`url`/`date` are optional but recommended — a quote reads as
-// unsourced without at least an outlet, so keep the fields present even when a
-// given entry leaves them blank.
+// The `press` collection: one Markdown file per callout — a short bit of context
+// about how a product was covered in a press release or news article. `headline`
+// and `blurb` carry the entry; `outlet`/`url`/`date` are optional but recommended
+// (a callout reads as unsourced without at least an outlet), and `quote` adds an
+// optional verbatim pull-quote. `category` groups entries into themed sections on
+// the /press page; the group order itself is defined in src/pages/press.astro.
 const press = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/press' }),
 	schema: z.object({
@@ -56,7 +57,8 @@ const press = defineCollection({
 		outlet: z.string().optional(),     // publication or source, e.g. "The Verge"
 		url: z.string().url().optional(),  // link to the original article (build-time validated)
 		date: z.string().optional(),       // display date, e.g. "March 2023"
-		order: z.number(),                 // sort order (low = first)
+		category: z.string(),              // themed section, e.g. "Platform Migrations"
+		order: z.number(),                 // sort order within a category (low = first)
 	}),
 });
 

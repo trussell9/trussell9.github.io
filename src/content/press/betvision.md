@@ -4,5 +4,6 @@ blurb: "In ESPN Bet's launch coverage, Covers highlighted BetVision: fans could 
 outlet: "Covers"
 url: "https://www.covers.com/industry/espn-bet-preview-thescore-bet-vision-sports-betting-november-2023"
 date: "November 2023"
+category: "Live Betting & Streaming"
 order: 10
 ---

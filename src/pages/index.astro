@@ -8,6 +8,12 @@ import { getCollection } from 'astro:content';
 const featured = (await getCollection('work', ({ data }) => data.featured)).sort(
 	(a, b) => a.data.order - b.data.order,
 );
+
+// Distinct outlets that have covered the work, for the Press hook below. Derived
+// from the collection so the home page never drifts from the /press page.
+const pressOutlets = [
+	...new Set((await getCollection('press')).map((p) => p.data.outlet).filter(Boolean)),
+];
 ---
 <!-- `home` tells the shared rail to use same-page anchors (#about) rather than
      links back to the home page, and pairs with the scroll-spy script below.
@@ -50,6 +56,16 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
 		</div>
 	</section>
 
+	<section id="press">
+		<p class="section-title">Press</p>
+		<h2>In the news.</h2>
+		<p class="subhead" style="margin: 0.75rem 0 1.5rem;">The products I've shipped have been covered across platform migrations, live streaming, and the Ontario launch.</p>
+		<div class="press-outlets">
+			{pressOutlets.map((outlet) => <span class="tag">{outlet}</span>)}
+		</div>
+		<p style="margin-top: 1.5rem;"><a href="/press">Read the coverage →</a></p>
+	</section>
+
 	<section id="contact">
 		<p class="section-title">Contact</p>
 		<h2>Let's talk.</h2>
@@ -57,6 +73,13 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
 		<div class="cta">
 			<a class="btn btn-primary" href="mailto:tim.russell57@gmail.com">Email me</a>
 			<a class="btn btn-secondary" href="https://linkedin.com/in/timrrussell" target="_blank" rel="noopener">Connect on LinkedIn</a>
+		</div>
+		<div class="resume-cta" style="margin-top: 2rem;">
+			<div>
+				<p class="resume-cta-title">Prefer the résumé?</p>
+				<p class="resume-cta-note">Two pages, with the detail behind each role.</p>
+			</div>
+			<a class="btn btn-primary" href="/Tim-Russell-Product-Manager.pdf" target="_blank" rel="noopener">View résumé</a>
 		</div>
 	</section>
 	<!-- The scroll-spy that drives the rail's active state lives in Rail.astro,
