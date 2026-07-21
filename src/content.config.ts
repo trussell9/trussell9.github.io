@@ -50,7 +50,9 @@ const work = defineCollection({
 const press = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/press' }),
 	schema: z.object({
-		quote: z.string(),                 // the callout itself
+		headline: z.string(),              // bold title for the callout
+		blurb: z.string(),                 // 1–2 sentences of context copy
+		quote: z.string().optional(),      // optional verbatim pull-quote from the piece
 		outlet: z.string().optional(),     // publication or source, e.g. "The Verge"
 		url: z.string().url().optional(),  // link to the original article (build-time validated)
 		date: z.string().optional(),       // display date, e.g. "March 2023"

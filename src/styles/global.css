@@ -238,10 +238,25 @@ section { padding-block: 4rem; }
   border-radius: var(--radius);
   padding: 1.75rem;
 }
-.press-quote {
+.press-headline {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
-  line-height: 1.4;
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+.press-blurb {
+  margin-top: 0.6rem;
+  color: var(--muted-foreground);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+/* Optional verbatim pull-quote, shown only when an entry sets `quote`. */
+.press-quote {
+  margin-top: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+  font-style: italic;
   color: var(--foreground);
 }
 .press-source { margin-top: 1rem; color: var(--muted-foreground); font-size: 0.9rem; }

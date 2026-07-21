@@ -14,7 +14,9 @@ const press = (await getCollection('press')).sort((a, b) => a.data.order - b.dat
 		<ul class="press-list">
 			{press.map((item) => (
 				<li class="press-item">
-					<blockquote class="press-quote">{item.data.quote}</blockquote>
+					<h2 class="press-headline">{item.data.headline}</h2>
+					<p class="press-blurb">{item.data.blurb}</p>
+					{item.data.quote && <blockquote class="press-quote">{item.data.quote}</blockquote>}
 					{(item.data.outlet || item.data.date) && (
 						<p class="press-source">
 							{item.data.url ? (
