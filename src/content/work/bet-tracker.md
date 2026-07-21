@@ -2,6 +2,7 @@
 title: "Built the feature that formalized a habit users already had"
 label: "Bet Tracker"
 summary: "An interactive feature showing users how their active bets were trending against live game state, grounded in research that users were already returning to theScore to track bets manually."
+hook: "Formalized a habit users already had. Matchup views and retention held above 60%."
 role: "Product Manager"
 timeframe: "2022–2024"
 team: "Engineering, Design, Data/Research"

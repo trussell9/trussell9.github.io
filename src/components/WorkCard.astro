@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, label, summary, skills } = entry.data;
+const { title, label, summary, hook, skills } = entry.data;
 // entry.id is the slug (filename without extension), e.g. "nfl-streaming".
 // Card shows the short `label` if set, otherwise the full narrative `title`.
 const heading = label ?? title;
@@ -34,5 +34,5 @@ const tag = skills[0];
 		{tag && <span class="tag tag-soft">{tag}</span>}
 	</div>
 	<h3>{heading}</h3>
-	<p class="summary">{summary}</p>
+	<p class="summary">{hook ?? summary}</p>
 </a>

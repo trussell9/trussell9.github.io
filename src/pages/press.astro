@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+// Every press callout, sorted by `order`.
+const press = (await getCollection('press')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Press — Tim Russell" description="Key callouts from press releases and news coverage of Tim Russell's product work." active="press">
+	<section>
+		<p class="section-title">Press</p>
+		<h1>In the news</h1>
+		<p class="subhead" style="margin: 1rem 0 2rem;">Callouts from press releases and coverage of the products I've shipped.</p>
+
+		<ul class="press-list">
+			{press.map((item) => (
+				<li class="press-item">
+					<blockquote class="press-quote">{item.data.quote}</blockquote>
+					{(item.data.outlet || item.data.date) && (
+						<p class="press-source">
+							{item.data.url ? (
+								<a href={item.data.url} target="_blank" rel="noopener">{item.data.outlet}</a>
+							) : (
+								item.data.outlet
+							)}
+							{item.data.outlet && item.data.date && <span class="press-dot"> · </span>}
+							{item.data.date}
+						</p>
+					)}
+				</li>
+			))}
+		</ul>
+	</section>
+</Base>

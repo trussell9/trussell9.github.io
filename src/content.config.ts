@@ -17,6 +17,7 @@ const work = defineCollection({
 				title: z.string(),
 				label: z.string().optional(),          // short card label; falls back to title
 				summary: z.string(),
+				hook: z.string().optional(),           // short card summary (~3 lines); falls back to summary
 				role: z.string(),
 				timeframe: z.string(),
 				team: z.string(),
@@ -41,4 +42,20 @@ const work = defineCollection({
 			}),
 });
 
-export const collections = { work };
+// The `press` collection: one Markdown file per callout. Each is a short pull
+// quote from a press release or news article. `quote` is the only required
+// field; `outlet`/`url`/`date` are optional but recommended — a quote reads as
+// unsourced without at least an outlet, so keep the fields present even when a
+// given entry leaves them blank.
+const press = defineCollection({
+	loader: glob({ pattern: '**/*.md', base: './src/content/press' }),
+	schema: z.object({
+		quote: z.string(),                 // the callout itself
+		outlet: z.string().optional(),     // publication or source, e.g. "The Verge"
+		url: z.string().url().optional(),  // link to the original article (build-time validated)
+		date: z.string().optional(),       // display date, e.g. "March 2023"
+		order: z.number(),                 // sort order (low = first)
+	}),
+});
+
+export const collections = { work, press };

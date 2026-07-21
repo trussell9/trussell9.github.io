@@ -2,10 +2,11 @@
 title: "Rebuilt theScore's Android app and lifted 30-day retention 7%"
 label: "theScore Android Rebuild"
 summary: "A ground-up rebuild of theScore's 1.5M-user Android app, clearing the performance debt that was slowing releases and laying the foundation for the cross-app integrations with theScore Bet."
+hook: "Ground-up rebuild for 1.5M users. +7% 30-day retention, app size and cycles halved."
 role: "Product Manager"
 timeframe: "2020–2021"
 team: "10 engineers, Design, QA"
-skills: ["Product Strategy", "A/B Testing", "Growth & Retention"]
+skills: ["Product Strategy", "Launch Sequencing", "Growth & Retention"]
 featured: true
 order: 4
 links: []
@@ -26,6 +27,8 @@ Product Manager leading a team of 10 engineers through roughly a year of work, f
 Scoped the rebuild against usage data rather than feature parity. Several visually complex features came out once the data showed how little they were used. The March Madness bracket, one of the most complicated things in the app, was cut from the MVP because it would be out of season at launch, which freed the team for work with more strategic value: migrating users off Facebook login so linked accounts would be possible later.
 
 For launch I wanted evidence before fully committing. We ran a beta on the new app to gather feedback ahead of release, then launched to 95% of users while holding 5% back on the old app as a comparison group. That let us measure the rebuild against the thing it actually replaced instead of against expectations.
+
+The team rebuilt the app in Kotlin, using Koin for dependency injection to keep the new architecture modular.
 
 ## Impact
 

@@ -229,6 +229,24 @@ section { padding-block: 4rem; }
 .work-card h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.6rem; }
 .work-card .summary { color: var(--muted-foreground); font-size: 0.95rem; }
 
+/* Press — a stacked list of pull-quote callouts, each in a card. */
+.press-list { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; }
+.press-item {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+}
+.press-quote {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.press-source { margin-top: 1rem; color: var(--muted-foreground); font-size: 0.9rem; }
+.press-dot { color: var(--muted-foreground); }
+
 /* pill tag — outlined teal by default */
 .tag {
   display: inline-block;

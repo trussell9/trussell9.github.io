@@ -2,6 +2,7 @@
 title: "Activated the cross-app ecosystem that carried Ontario's launch"
 label: "Ontario Launch"
 summary: "Account linking, the connected ecosystem experience built on top of it, and the in-app go-to-market comms that drove theScore Bet's Ontario launch, producing a cohort that carried the majority of year-one revenue."
+hook: "~80% of gross revenue and 70%+ of wagers in year one came from ecosystem users."
 role: "Product Manager"
 timeframe: "2022"
 team: "Engineering, Design"
