@@ -24,6 +24,14 @@ const work = defineCollection({
 				skills: z.array(z.string()),
 				featured: z.boolean().default(false), // true = shown on the home page
 				order: z.number(),                     // sort order (low = first)
+				// Headline outcomes, shown as a band at the top of the case-study page
+				// so the numbers a reader is scanning for aren't buried in prose.
+				// `value` is the number itself, `label` the short what-it-measures line.
+				// Capped at 3: past that they stop reading as headlines.
+				metrics: z
+					.array(z.object({ value: z.string(), label: z.string() }))
+					.max(3, 'Three metrics is the most that still reads as a headline band.')
+					.default([]),
 				// Shown at the top of the case-study page (not on the cards).
 				// Put the file in src/assets/work/ and reference it relative to
 				// this .md file, e.g. cover: ../../assets/work/bet-tracker.webp

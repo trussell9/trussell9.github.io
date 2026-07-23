@@ -9,6 +9,13 @@ team: "Engineering, Design, and stakeholders across brand, compliance, and marke
 skills: ["App Migrations", "Cross-Functional Alignment", "Product Strategy"]
 featured: true
 order: 1
+metrics:
+  - value: "2"
+    label: "Platform migrations shipped back to back"
+  - value: "3 months"
+    label: "To retire Barstool and stand up ESPN Bet"
+  - value: "20"
+    label: "U.S. and Canadian jurisdictions kept in sync"
 links: []
 ---
 

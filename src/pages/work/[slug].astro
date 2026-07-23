@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 // render() turns the Markdown body into a <Content /> component we can drop in.
 const { Content } = await render(entry);
-const { title, summary, role, timeframe, team, skills, cover, coverAlt } = entry.data;
+const { title, summary, role, timeframe, team, skills, metrics, cover, coverAlt } = entry.data;
 ---
 <Base title={`${title} — Tim Russell`} description={summary} active="work">
 	<article class="case-study">
@@ -34,6 +34,20 @@ const { title, summary, role, timeframe, team, skills, cover, coverAlt } = entry
 		<div class="meta" style="margin-top: 0.5rem;">
 			{skills.map((s) => <span class="tag">{s}</span>)}
 		</div>
+
+		{/* Outcomes first. A PM portfolio is read for its numbers, and buried in
+		    prose they're something the reader has to hunt for. A <dl> because each
+		    one really is a term and its definition, not a list of unrelated items. */}
+		{metrics.length > 0 && (
+			<dl class="metric-band">
+				{metrics.map((m) => (
+					<div class="metric">
+						<dt class="metric-value">{m.value}</dt>
+						<dd class="metric-label">{m.label}</dd>
+					</div>
+				))}
+			</dl>
+		)}
 
 		{cover && (
 			<figure class="case-cover">

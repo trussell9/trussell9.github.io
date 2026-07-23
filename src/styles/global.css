@@ -444,6 +444,35 @@ section { padding-block: 4rem; }
 }
 
 /* ---- Case-study detail ---- */
+/* Metric band — the outcomes, pulled up out of the prose and set in display type
+   so they read at a glance. auto-fit means a study with two metrics fills the row
+   the same way a study with three does, without a per-count rule. */
+.metric-band {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1px;                        /* the gap IS the divider: cards sit on the border colour */
+  background-color: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;                /* clip the cells' corners to the band's radius */
+}
+.metric { background-color: var(--card); padding: 1.25rem 1.35rem; }
+.metric-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+.metric-label {
+  margin-top: 0.45rem;
+  color: var(--muted-foreground);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
 /* Cover image sits between the meta block and the article body. Bordered and
    rounded to match the cards, so a screenshot reads as part of the page rather
    than something pasted on top of it. */

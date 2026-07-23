@@ -9,6 +9,13 @@ team: "10 engineers, Design, QA"
 skills: ["Product Strategy", "Launch Sequencing", "Growth & Retention"]
 featured: true
 order: 4
+metrics:
+  - value: "+7%"
+    label: "30-day retention vs. the old-app cohort"
+  - value: "1.5M"
+    label: "Users on the app that was rebuilt"
+  - value: "~50%"
+    label: "Faster delivery cycles after launch"
 links: []
 ---
 

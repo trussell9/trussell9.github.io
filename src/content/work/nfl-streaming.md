@@ -9,6 +9,11 @@ team: "Engineering, Design, Data, streaming partners"
 skills: ["Growth & Retention", "GTM & Launch Sequencing", "Integrations & Ecosystem"]
 featured: true
 order: 2
+metrics:
+  - value: "$3M"
+    label: "Year-over-year increase in live wagering volume"
+  - value: "3 sports"
+    label: "Live experiences shipped: NFL, Golf, MMA"
 links: []
 ---
 

@@ -9,6 +9,11 @@ team: "Engineering, Design, Data/Research"
 skills: ["User Research", "Growth & Retention", "Product Strategy"]
 featured: true
 order: 3
+metrics:
+  - value: "60%+"
+    label: "Matchup page views held"
+  - value: "60%+"
+    label: "Feature retention held"
 links: []
 ---
 

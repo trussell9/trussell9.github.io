@@ -9,6 +9,13 @@ team: "Engineering, Design"
 skills: ["Integrations & Ecosystem", "GTM & Launch Sequencing", "Growth & Retention"]
 featured: false
 order: 5
+metrics:
+  - value: "~80%"
+    label: "Of year-one gross revenue from the linked cohort"
+  - value: "70%+"
+    label: "Of year-one wager amounts from that cohort"
+  - value: "1M+"
+    label: "Linked accounts overall"
 links: []
 ---
 
