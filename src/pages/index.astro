@@ -32,8 +32,13 @@ const skills = [
      links back to the home page, and pairs with the scroll-spy script below.
      The rail and hub shell itself live in Base.astro, on every page. -->
 <Base home>
+	{/* The page's h1. It's visually hidden because the identity rail already states
+	    the name and role in type — but a page with no h1 is a heading-structure and
+	    SEO gap, and screen-reader "jump by heading" starts here. */}
+	<h1 class="sr-only">Tim Russell — Product Manager</h1>
+
 	<section id="about">
-		<p class="section-title">About</p>
+		<h2 class="section-title">About</h2>
 		<div class="about">
 			<p>I've spent my whole career at one company, theScore, and I'm proud of that. The tenure came from leadership handing me newer, bigger challenges, which are exactly the problems I like most.</p>
 			<p>That's how I landed the projects at the centre of the company's strategy: rebuilding the Android app, then building the cross-app ecosystem between theScore's media and betting products, then steering that experience through an IPO, a $2B acquisition by PENN, and two U.S. platform migrations. Most recently I focused on theScore Bet, shipping live-betting features like in-app NFL streaming.</p>
@@ -52,7 +57,7 @@ const skills = [
 	</section>
 
 	<section id="skills">
-		<p class="section-title">Skills</p>
+		<h2 class="section-title">Skills</h2>
 		<div class="skill-pills">
 			{skills.map((s) => <span class="tag">{s}</span>)}
 		</div>

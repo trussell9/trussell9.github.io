@@ -71,6 +71,36 @@ h3 { font-size: 1.25rem; }
 a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
 a:hover { text-decoration: underline; }
 
+/* ---- Focus ---- */
+/* The browser's default focus ring is nearly invisible on this palette, so a
+   keyboard user has no way to tell where they are. One teal outline covers every
+   interactive element. :focus-visible (not :focus) means mouse clicks don't get
+   a ring, only keyboard/assistive navigation does.
+   :where() keeps specificity at 0, so any component rule can still override it. */
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+/* The rail nav's affordance is the line growing, not the text colour — so make
+   focus do exactly what hover does, or a keyboard user gets less feedback. */
+.rail-nav a:focus-visible .nav-line { width: 52px; background: var(--accent); }
+.rail-nav a:focus-visible { color: var(--foreground); }
+
+/* Visually hidden, but still read by screen readers and still focusable.
+   Used for the home page's h1, which the identity rail states visually. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ---- Layout helpers ---- */
 .container {
   width: 100%;
@@ -459,7 +489,7 @@ section { padding-block: 4rem; }
 /* Let the text block shrink so the button stays alongside it instead of being
    pushed onto its own row when the copy runs long. */
 .resume-cta > div { flex: 1 1 16rem; }
-.resume-cta-title { font-family: var(--font-heading); font-weight: 600; }
+.resume-cta-title { font-family: var(--font-display); font-weight: 600; }
 .resume-cta-note { color: var(--muted-foreground); font-size: 0.9rem; margin-top: 0.2rem; }
 .resume-cta .btn { flex-shrink: 0; }
 
