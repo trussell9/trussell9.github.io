@@ -37,25 +37,58 @@
 html { scroll-behavior: smooth; }
 
 body {
-  /* Ambient "Ocean Deep" backdrop: the hero graphic, fixed behind all content
-     site-wide, dimmed by a translucent navy overlay so text stays legible.
-     Tune the image's presence via the overlay % (higher = fainter image). */
   background-color: var(--background);
-  background-image:
-    linear-gradient(
-      color-mix(in oklch, var(--background) 82%, transparent),
-      color-mix(in oklch, var(--background) 82%, transparent)
-    ),
-    url("/hero.webp");
-  background-position: center, center;
-  background-size: cover, cover;
-  background-repeat: no-repeat, no-repeat;
-  background-attachment: fixed, fixed;
   color: var(--foreground);
   font-family: var(--font-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Ambient "Ocean Deep" backdrop: the hero graphic behind all content site-wide,
+   dimmed by a translucent navy overlay so text stays legible. Tune the image's
+   presence via the overlay % (higher = fainter image).
+
+   This is a fixed-position pseudo-element rather than `background-attachment:
+   fixed` on the body. Mobile Safari has long-standing bugs with fixed
+   attachment (scroll jank, wrong scaling, the image dropping outright), and
+   this backdrop sits behind every page, so a failure there is very visible on
+   the device most visitors arrive on. A fixed element is viewport-sized and
+   behaves identically everywhere. z-index: -1 keeps it behind the content
+   without needing a stacking context on anything else. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      color-mix(in oklch, var(--background) 88%, transparent),
+      color-mix(in oklch, var(--background) 88%, transparent)
+    ),
+    url("/hero.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Honour a reduced-motion preference: no smooth scrolling, no card lift, no
+   page-transition animation. Set to near-zero rather than `none` so anything
+   that listens for transitionend still fires. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* View-transition pseudo-elements aren't matched by `*`, so they need naming. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+  .work-card:hover { transform: none; }
 }
 
 /* ---- Typography ---- */
@@ -426,8 +459,21 @@ section { padding-block: 4rem; }
     width: 100%;
     padding: 3rem 1.5rem 1rem;
   }
-  .rail-nav { flex-direction: row; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.75rem; }
-  .rail-links { margin-top: 1.75rem; padding-top: 0; }
+  .rail-nav { flex-direction: row; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 1.5rem; }
+  .rail-links { margin-top: 1.5rem; padding-top: 0; gap: 0.5rem 1rem; }
+  /* Touch targets. On desktop these are text rows in a generous column; on a
+     phone they're a wrapped row of small uppercase labels, which is easy to
+     mis-tap. 44px is the minimum both Apple and WCAG ask for. The negative
+     inline margin keeps the text visually flush with the rail's edge while the
+     tappable box still extends past it. */
+  .rail-nav a,
+  .rail-links a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding-inline: 0.5rem;
+    margin-inline: -0.5rem;
+  }
   .hub-content { max-width: none; width: 100%; padding: 1rem 1.5rem 3rem; }
 
   /* On the home page the stacked rail IS the introduction, so it earns the
