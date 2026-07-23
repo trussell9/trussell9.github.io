@@ -15,11 +15,14 @@ const pressOutlets = [
 	...new Set((await getCollection('press')).map((p) => p.data.outlet).filter(Boolean)),
 ];
 
-// The three numbers that do the most work in the first screen. Each one is the
+// The four numbers that do the most work in the first screen. Three are the
 // headline metric of a case study below, so the strip doubles as a table of
-// contents for the work. Kept to three: a fourth stops being a headline.
+// contents for the work. The $2B is the exception and is worded carefully: it's
+// PENN's number, not mine, and the claim is that the ecosystem work fed the
+// strategy behind it, which is exactly what it was.
 const stats = [
 	{ value: '$3M', label: 'Year-over-year lift in live wagering' },
+	{ value: '$2B', label: "theScore's exit; my ecosystem work fed the strategy" },
 	{ value: '2', label: 'Platform rebrands, no live disruption' },
 	{ value: '1.5M', label: 'Users on the app I rebuilt' },
 ];

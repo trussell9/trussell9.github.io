@@ -500,8 +500,11 @@ section { padding-block: 4rem; }
 @media (max-width: 640px) {
   section { padding-block: 3rem; }
   /* auto-fit gets two columns at this width, so a three-metric band wraps to
-     2 + 1 and leaves a visibly empty cell. Stack them instead. */
+     2 + 1 and leaves a visibly empty cell. Stack them instead. The home strip is
+     the exception: four stats divide evenly, so 2x2 fills without a gap and
+     keeps the band from pushing About most of a screen down. */
   .metric-band { grid-template-columns: 1fr; }
+  .metric-band--intro { grid-template-columns: repeat(2, 1fr); }
   /* Two columns are unreadable at phone widths; stack the cards instead. */
   .work-grid { grid-template-columns: 1fr; }
   /* Stacked cards have the full width, so no need to clamp the summary. */
