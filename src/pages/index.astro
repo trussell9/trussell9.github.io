@@ -9,11 +9,11 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
 	(a, b) => a.data.order - b.data.order,
 );
 
-// Distinct outlets that have covered the work, for the Press hook below. Derived
-// from the collection so the home page never drifts from the /press page.
-const pressOutlets = [
-	...new Set((await getCollection('press')).map((p) => p.data.outlet).filter(Boolean)),
-];
+// One piece of coverage as the home page's press hook. A single real headline is
+// proof; the row of outlet names it replaced asked the reader to care about
+// publications they may not know. Set `featured: true` on a different entry to
+// swap it. Falls back to nothing rather than erroring if none is marked.
+const featuredPress = (await getCollection('press')).find(({ data }) => data.featured);
 
 // The four numbers that do the most work in the first screen. Three are the
 // headline metric of a case study below, so the strip doubles as a table of
@@ -39,6 +39,32 @@ const skills = [
 	'Integrations & Ecosystem',
 	'Cross-Functional Alignment',
 ];
+
+// What I'm looking for, stated plainly. A recruiter's first question is whether
+// there's a match at all, and making them infer it from prose costs both of us
+// time. Deliberately specific: a vague answer here is the same as no answer.
+const fit = [
+	{ term: 'Roles', detail: 'Product Manager or Senior PM, as an individual contributor.' },
+	{ term: 'Stage', detail: 'Roughly 50 to 1,000 people. Past scrappy, before bureaucratic.' },
+	{
+		term: 'Industries',
+		detail:
+			'Health, mobility, civic tech, and consumer products with genuine utility. Moving away from betting and iGaming.',
+	},
+	{
+		term: 'What I value',
+		detail:
+			'Solving real problems for real people, at a company that means it. Product trio over handoffs: PM, engineering, and design deciding together.',
+	},
+	{
+		term: 'In a manager',
+		detail: 'Direct, transparent feedback and real investment in my growth. Coaching and autonomy, not a gatekeeper.',
+	},
+	{
+		term: 'Location',
+		detail: 'Toronto. Remote or hybrid across the US and Canada. Relocation for the right team and role.',
+	},
+];
 ---
 <!-- `home` tells the shared rail to use same-page anchors (#about) rather than
      links back to the home page, and pairs with the scroll-spy script below.
@@ -49,19 +75,6 @@ const skills = [
 	    SEO gap, and screen-reader "jump by heading" starts here. */}
 	<h1 class="sr-only">Tim Russell — Product Manager</h1>
 
-	{/* Outcomes before prose. The rail says who I am; this says what the work was
-	    worth, before the reader has to scroll or commit to three paragraphs.
-	    Same component as the case-study metric bands, so the numbers here and the
-	    numbers on the studies read as one system. */}
-	<dl class="metric-band metric-band--intro">
-		{stats.map((s) => (
-			<div class="metric">
-				<dt class="metric-value">{s.value}</dt>
-				<dd class="metric-label">{s.label}</dd>
-			</div>
-		))}
-	</dl>
-
 	<section id="about">
 		<h2 class="section-title">About</h2>
 		<div class="about">
@@ -69,6 +82,19 @@ const skills = [
 			<p>That's how I landed the projects at the centre of the company's strategy: rebuilding the Android app, then building the cross-app ecosystem between theScore's media and betting products, then steering that experience through an IPO, a $2B acquisition by PENN, and two U.S. platform migrations. Most recently I focused on theScore Bet, shipping live-betting features like in-app NFL streaming.</p>
 			<p>Now I'm after the next hard problem, ideally a consumer product where solving it also makes a real difference to the people on the other side.</p>
 		</div>
+
+		{/* The prose says what I did; these say what it was worth. Sitting directly
+		    under About, they close the paragraphs with evidence and lead into the
+		    work. Same component as the case-study bands, so the numbers here and
+		    the numbers on the studies read as one system. */}
+		<dl class="metric-band metric-band--home">
+			{stats.map((s) => (
+				<div class="metric">
+					<dt class="metric-value">{s.value}</dt>
+					<dd class="metric-label">{s.label}</dd>
+				</div>
+			))}
+		</dl>
 	</section>
 
 	<section id="work">
@@ -81,6 +107,28 @@ const skills = [
 		<p style="margin-top: 1.5rem;"><a href="/work">See all work →</a></p>
 	</section>
 
+	<section id="press">
+		<p class="section-title">Press</p>
+		<h2>In the news.</h2>
+		<p class="subhead" style="margin: 0.75rem 0 1.5rem;">The products I've shipped have been covered across platform migrations, the Android rebuild, and the Ontario launch.</p>
+		{featuredPress && (
+			<div class="press-item">
+				<h3 class="press-headline">{featuredPress.data.headline}</h3>
+				<p class="press-blurb">{featuredPress.data.blurb}</p>
+				<p class="press-source">
+					{featuredPress.data.url ? (
+						<a href={featuredPress.data.url} target="_blank" rel="noopener">{featuredPress.data.outlet}</a>
+					) : (
+						featuredPress.data.outlet
+					)}
+					{featuredPress.data.outlet && featuredPress.data.date && <span class="press-dot"> · </span>}
+					{featuredPress.data.date}
+				</p>
+			</div>
+		)}
+		<p style="margin-top: 1.5rem;"><a href="/press">Read the coverage →</a></p>
+	</section>
+
 	<section id="skills">
 		<h2 class="section-title">Skills</h2>
 		<div class="skill-pills">
@@ -88,20 +136,26 @@ const skills = [
 		</div>
 	</section>
 
-	<section id="press">
-		<p class="section-title">Press</p>
-		<h2>In the news.</h2>
-		<p class="subhead" style="margin: 0.75rem 0 1.5rem;">The products I've shipped have been covered across platform migrations, the Android rebuild, and the Ontario launch.</p>
-		<div class="press-outlets">
-			{pressOutlets.map((outlet) => <span class="tag">{outlet}</span>)}
-		</div>
-		<p style="margin-top: 1.5rem;"><a href="/press">Read the coverage →</a></p>
+	{/* Stated plainly rather than buried in the Contact paragraph, where it used to
+	    live. A recruiter's first question is whether there's a match at all. */}
+	<section id="fit">
+		<p class="section-title">Fit</p>
+		<h2>What I'm looking for.</h2>
+		<p class="subhead" style="margin: 0.75rem 0 1.5rem;">The short version, so you can tell in ten seconds whether we should talk.</p>
+		<dl class="fit-list">
+			{fit.map((f) => (
+				<div class="fit-row">
+					<dt class="fit-term">{f.term}</dt>
+					<dd class="fit-detail">{f.detail}</dd>
+				</div>
+			))}
+		</dl>
 	</section>
 
 	<section id="contact">
 		<p class="section-title">Contact</p>
 		<h2>Let's talk.</h2>
-		<p class="subhead" style="margin: 0.75rem 0 1.5rem;">Open to Product Manager / Senior PM roles. I'm drawn to products with real utility at companies that care about the people they build for. Remote or hybrid, US &amp; Canada.</p>
+		<p class="subhead" style="margin: 0.75rem 0 1.5rem;">If any of that lines up, I'd like to hear about it. The best first step is an email.</p>
 		<div class="cta">
 			<a class="btn btn-primary" href="mailto:tim.russell57@gmail.com">Email me</a>
 			<a class="btn btn-secondary" href="https://linkedin.com/in/timrrussell" target="_blank" rel="noopener">Connect on LinkedIn</a>

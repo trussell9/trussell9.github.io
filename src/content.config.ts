@@ -67,6 +67,9 @@ const press = defineCollection({
 		date: z.string().optional(),       // display date, e.g. "March 2023"
 		category: z.string(),              // themed section, e.g. "Platform Migrations"
 		order: z.number(),                 // sort order within a category (low = first)
+		// The one entry the home page pulls out as its press hook. Exactly one
+		// should carry this; the home page takes the first it finds.
+		featured: z.boolean().default(false),
 	}),
 });
 

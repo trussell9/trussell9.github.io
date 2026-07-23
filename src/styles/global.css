@@ -224,8 +224,6 @@ section { padding-block: 4rem; }
    divider); this just sets the spacing between one group and the next. */
 .press-group + .press-group { margin-top: 3rem; }
 .press-list { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; }
-/* Outlet pills on the home-page Press hook. */
-.press-outlets { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .press-item {
   background-color: var(--card);
   border: 1px solid var(--border);
@@ -278,8 +276,45 @@ section { padding-block: 4rem; }
 /* ---- About / Skills ---- */
 .about { max-width: 62ch; }
 .about p + p { margin-top: 1rem; }
-.skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.skill-pills .tag { font-size: 0.85rem; padding: 0.35rem 0.9rem; }
+.skill-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+/* Filled rather than outlined. As hairline-bordered tags on a dark background
+   these read as quiet metadata and the whole section was easy to scroll past;
+   a tinted fill and a teal border give them enough weight to register as
+   content. Kept lighter than .btn so they don't read as clickable. */
+.skill-pills .tag {
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.45rem 1rem;
+  color: var(--foreground);
+  background: color-mix(in oklch, var(--accent) 14%, transparent);
+  border-color: color-mix(in oklch, var(--accent) 35%, transparent);
+}
+
+/* ---- Fit ---- */
+/* A spec sheet, not prose: term in one column, detail in the other, so the whole
+   thing is skimmable in a few seconds. Collapses to stacked rows on narrow
+   screens, where a 2-column grid would leave the detail column too tight. */
+/* Hairline rules between rows rather than filled cells, so the ambient backdrop
+   still shows through the section the way it does everywhere else. */
+.fit-list { display: grid; }
+.fit-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.25rem;
+  padding-block: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+.fit-row:last-child { border-bottom: 1px solid var(--border); }
+.fit-term {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  padding-top: 0.2rem;
+}
+.fit-detail { color: var(--foreground); }
 
 /* ============================================================
    Split hub — sticky left identity rail beside a scrolling
@@ -426,11 +461,10 @@ section { padding-block: 4rem; }
   border-radius: var(--radius);
   overflow: hidden;                /* clip the cells' corners to the band's radius */
 }
-/* On the home page the band opens the content column, so it carries no top
-   margin, and the figures step down a size: it's an introduction to the work,
-   not the headline of a single study. */
-.metric-band--intro { margin-top: 0; margin-bottom: 1rem; }
-.metric-band--intro .metric-value { font-size: clamp(1.5rem, 3vw, 2rem); }
+/* On the home page the band closes the About section rather than heading a
+   study, so the figures step down a size and it keeps a little air above. */
+.metric-band--home { margin-top: 2rem; }
+.metric-band--home .metric-value { font-size: clamp(1.5rem, 3vw, 2rem); }
 .metric { background-color: var(--card); padding: 1.25rem 1.35rem; }
 .metric-value {
   font-family: var(--font-display);
@@ -504,7 +538,9 @@ section { padding-block: 4rem; }
      the exception: four stats divide evenly, so 2x2 fills without a gap and
      keeps the band from pushing About most of a screen down. */
   .metric-band { grid-template-columns: 1fr; }
-  .metric-band--intro { grid-template-columns: repeat(2, 1fr); }
+  .metric-band--home { grid-template-columns: repeat(2, 1fr); }
+  /* Two columns leave the detail column too tight to read; stack term over detail. */
+  .fit-row { grid-template-columns: 1fr; gap: 0.35rem; }
   /* Two columns are unreadable at phone widths; stack the cards instead. */
   .work-grid { grid-template-columns: 1fr; }
   /* Stacked cards have the full width, so no need to clamp the summary. */
