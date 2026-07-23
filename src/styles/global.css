@@ -25,8 +25,11 @@
   --font-body: "DM Sans", system-ui, sans-serif;            /* body */
 
   /* ---- Shape & layout ---- */
+  /* The site is dark-only. Without this the browser assumes light and renders
+     scrollbars, form controls and the like to match. */
+  color-scheme: dark;
+
   --radius: 0.625rem;         /* 10px — soft corners on cards/buttons */
-  --content-width: 56rem;     /* ~896px reading measure, centered */
   --transition: 150ms ease;
 }
 
@@ -104,6 +107,16 @@ h3 { font-size: 1.25rem; }
 a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
 a:hover { text-decoration: underline; }
 
+/* Links sitting inside running text carry a permanent underline. Everywhere else
+   (nav, cards, buttons) position makes the link obvious, but in a paragraph the
+   only thing separating a link from body copy is its colour — which a low-vision
+   or colour-blind reader may not catch. The offset keeps it off the descenders. */
+:is(.about, .prose, .press-blurb, .resume-cta-note) a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
 /* ---- Focus ---- */
 /* The browser's default focus ring is nearly invisible on this palette, so a
    keyboard user has no way to tell where they are. One teal outline covers every
@@ -135,17 +148,11 @@ a:hover { text-decoration: underline; }
 }
 
 /* ---- Layout helpers ---- */
-.container {
-  width: 100%;
-  max-width: var(--content-width);
-  margin-inline: auto;
-  padding-inline: 1.5rem;
-}
 section { padding-block: 4rem; }
 /* One section-header style site-wide: teal Space Grotesk label with a divider.
    Used for the home-page section eyebrows and the /press category headers. */
 .section-title {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -157,92 +164,8 @@ section { padding-block: 4rem; }
 }
 .subhead { color: var(--muted-foreground); font-size: clamp(1.05rem, 2vw, 1.3rem); }
 
-/* ---- Header (sticky, blurred) ---- */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background-color: color-mix(in oklch, var(--background) 75%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-}
-.site-header .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-block: 1rem;
-}
-.site-header .brand { font-family: var(--font-display); font-weight: 700; color: var(--foreground); font-size: 1.05rem; }
-.site-header .brand:hover { text-decoration: none; color: var(--accent); }
-.site-nav { display: flex; gap: 1.5rem; }
-.site-nav a { color: var(--muted-foreground); font-size: 0.95rem; }
-.site-nav a:hover { color: var(--foreground); text-decoration: none; }
-
-/* ---- Footer ---- */
-.site-footer { border-top: 1px solid var(--border); padding-block: 2rem; margin-top: 4rem; }
-.site-footer .container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: center;
-  justify-content: space-between;
-}
-.site-footer .links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
-.site-footer a { color: var(--muted-foreground); font-size: 0.9rem; }
-.site-footer a:hover { color: var(--foreground); }
-.site-footer small { color: var(--muted-foreground); font-size: 0.85rem; }
-
-/* ---- Hero ---- */
-/* Full-bleed section holds the background; the inner .container keeps text
-   at the same reading width as every other section (left-aligned, editorial). */
-.hero-section {
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid var(--border);
-}
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: url("/hero.webp") center right / cover no-repeat;
-}
-/* Two gradients over the image: (1) L→R fade keeps left-aligned text legible
-   while letting the teal graphic show on the right; (2) top+bottom fade blends
-   the image under the sticky header and into the next section. */
-.hero-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg,
-      var(--background) 0%,
-      color-mix(in oklch, var(--background) 82%, transparent) 42%,
-      color-mix(in oklch, var(--background) 35%, transparent) 100%),
-    linear-gradient(to bottom,
-      color-mix(in oklch, var(--background) 55%, transparent) 0%,
-      transparent 28%,
-      transparent 68%,
-      var(--background) 100%);
-}
-.hero { position: relative; z-index: 1; padding-block: 7rem 5rem; }
-.hero h1 { max-width: 20ch; }
-.hero .subhead { margin-top: 1.5rem; max-width: 48ch; }
+/* Row of call-to-action buttons (the Contact section). */
 .cta { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
-
-/* Small pill above the headline, e.g. "Product Manager". */
-.badge {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-  background: color-mix(in oklch, var(--accent) 12%, transparent);
-  border: 1px solid color-mix(in oklch, var(--accent) 30%, transparent);
-  border-radius: 999px;
-  padding: 0.3rem 0.85rem;
-  margin-bottom: 1.5rem;
-}
 
 /* ---- Buttons ---- */
 .btn {
@@ -311,7 +234,7 @@ section { padding-block: 4rem; }
   padding: 1.75rem;
 }
 .press-headline {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.25rem, 2.2vw, 1.5rem);
   font-weight: 700;
   line-height: 1.25;
@@ -359,9 +282,9 @@ section { padding-block: 4rem; }
 .skill-pills .tag { font-size: 0.85rem; padding: 0.35rem 0.9rem; }
 
 /* ============================================================
-   Split hub (home page only) — sticky left identity rail +
-   scrolling right content column. Rendered when the page uses
-   <Base bare>; every other page keeps the top-nav layout.
+   Split hub — sticky left identity rail beside a scrolling
+   content column. Base.astro renders it on every page, so the
+   navigation never changes shape between pages.
    ============================================================ */
 .hub {
   display: flex;
@@ -570,9 +493,7 @@ section { padding-block: 4rem; }
 
 /* ---- Responsive ---- */
 @media (max-width: 640px) {
-  .site-nav { gap: 1rem; font-size: 0.85rem; }
   section { padding-block: 3rem; }
-  .hero { padding-block: 3rem 2rem; }
   /* Two columns are unreadable at phone widths; stack the cards instead. */
   .work-grid { grid-template-columns: 1fr; }
   /* Stacked cards have the full width, so no need to clamp the summary. */

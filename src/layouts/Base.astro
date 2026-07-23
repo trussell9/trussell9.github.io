@@ -1,6 +1,17 @@
 ---
 // Base.astro — the shared layout every page reuses.
 // Frontmatter (between the --- fences) runs at BUILD time only.
+// Fonts are self-hosted (@fontsource) rather than fetched from Google: no
+// third-party request on every visit, no swap flash while the CSS round-trips,
+// and nothing about the site depends on someone else's CDN staying up. The
+// weights below are exactly the ones global.css asks for — adding a weight to a
+// rule means adding its import here too, or the browser will fake it.
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/dm-sans/400.css';
+import '@fontsource/dm-sans/500.css';
+import '@fontsource/dm-sans/700.css';
 import '../styles/global.css';
 import Rail from '../components/Rail.astro';
 import { ClientRouter } from 'astro:transitions';
@@ -54,10 +65,26 @@ const ogImage = new URL('/og.png', Astro.site);
 		<meta property="og:image:alt" content="Tim Russell, Product Manager — I ship consumer products through the hard parts." />
 		<meta name="twitter:card" content="summary_large_image" />
 
-		<!-- Fonts: Space Grotesk (display) + DM Sans (body) -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+		{/* Structured data, home page only — one Person per site, or search engines
+		    see the same entity described five times. Tells Google which name, role
+		    and profiles belong to this site rather than inferring them from copy. */}
+		{home && (
+			<script
+				type="application/ld+json"
+				set:html={JSON.stringify({
+					'@context': 'https://schema.org',
+					'@type': 'Person',
+					name: 'Tim Russell',
+					jobTitle: 'Product Manager',
+					url: Astro.site?.href,
+					image: ogImage.href,
+					email: 'mailto:tim.russell57@gmail.com',
+					address: { '@type': 'PostalAddress', addressLocality: 'Toronto', addressCountry: 'CA' },
+					sameAs: ['https://linkedin.com/in/timrrussell'],
+					alumniOf: { '@type': 'CollegeOrUniversity', name: 'Toronto Metropolitan University' },
+				})}
+			/>
+		)}
 
 		<!-- Client-side routing: swap just the changed part of the document instead
 		     of tearing down and rebuilding the whole page on every navigation.
