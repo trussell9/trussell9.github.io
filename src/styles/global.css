@@ -461,6 +461,14 @@ section { padding-block: 4rem; }
   border-radius: var(--radius);
   overflow: hidden;                /* clip the cells' corners to the band's radius */
 }
+/* A band with a single metric would otherwise stretch that one cell across the
+   full row, leaving the value hugging the left of an empty bar. Size the band to
+   its content instead, so a lone stat reads as a deliberate highlight card. */
+.metric-band:has(.metric:only-child) {
+  grid-template-columns: auto;
+  width: fit-content;
+  max-width: 100%;
+}
 /* On the home page the band closes the About section rather than heading a
    study, so the figures step down a size and it keeps a little air above. */
 .metric-band--home { margin-top: 2rem; }

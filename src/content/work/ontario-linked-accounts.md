@@ -14,8 +14,6 @@ metrics:
     label: "Of year-one gross revenue from the linked cohort"
   - value: "70%+"
     label: "Of year-one wager amounts from that cohort"
-  - value: "1M+"
-    label: "Linked accounts overall"
 links: []
 ---
 
@@ -33,4 +31,4 @@ Activated the full ecosystem experience for the Ontario launch across three fron
 
 ## Impact
 
-The linked-account cohort drove **~80% of gross revenue and 70%+ of wager amounts** in Ontario's first year, contributing to **1M+ linked accounts** overall.
+The linked-account cohort drove **~80% of gross revenue and 70%+ of wager amounts** in Ontario's first year.

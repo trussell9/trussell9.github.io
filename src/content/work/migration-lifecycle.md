@@ -11,9 +11,7 @@ featured: true
 order: 1
 metrics:
   - value: "2"
-    label: "Platform migrations shipped back to back"
-  - value: "3 months"
-    label: "To retire Barstool and stand up ESPN Bet"
+    label: "Platform migrations back to back, the second in three months"
   - value: "20"
     label: "U.S. and Canadian jurisdictions kept in sync"
 links: []

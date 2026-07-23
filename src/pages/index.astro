@@ -47,8 +47,7 @@ const fit = [
 	{ term: 'Roles', detail: 'Product Manager or Senior PM, as an individual contributor.' },
 	{
 		term: 'Stage',
-		detail:
-			'Roughly 50 to 1,000 people, past product-market fit. I do my best work at inflection points: scaling something that already works, or carrying it through a change that could break it.',
+		detail: 'Growth stage, or in Series A-C funding; open to Seed.',
 	},
 	{
 		term: 'Company',
@@ -66,7 +65,7 @@ const fit = [
 	},
 	{
 		term: 'Location',
-		detail: 'Toronto. Remote or hybrid across the US and Canada. Relocation for the right team and role.',
+		detail: 'Toronto (remote or hybrid). Remote across Canadian and U.S. orgs.',
 	},
 ];
 ---
@@ -91,7 +90,8 @@ const fit = [
 		    under About, they close the paragraphs with evidence and lead into the
 		    work. Same component as the case-study bands, so the numbers here and
 		    the numbers on the studies read as one system. */}
-		<dl class="metric-band metric-band--home">
+		<h3 class="section-title" style="margin-top: 2.5rem;">Key highlights</h3>
+		<dl class="metric-band metric-band--home" style="margin-top: 0;">
 			{stats.map((s) => (
 				<div class="metric">
 					<dt class="metric-value">{s.value}</dt>
@@ -104,7 +104,7 @@ const fit = [
 	<section id="work">
 		<p class="section-title">Selected work</p>
 		<h2>Turning strategic bets into shipped products.</h2>
-		<p class="subhead" style="margin: 0.75rem 0 2rem;">Four projects across platform change, launches, and discovery.</p>
+		<p class="subhead" style="margin: 0.75rem 0 2rem;">Projects across platform change, launches, and discovery.</p>
 		<div class="work-grid">
 			{featured.map((entry) => <WorkCard entry={entry} />)}
 		</div>
@@ -130,22 +130,16 @@ const fit = [
 				</p>
 			</div>
 		)}
-		<p style="margin-top: 1.5rem;"><a href="/press">Read the coverage →</a></p>
+		<p style="margin-top: 1.5rem;"><a href="/press">See more coverage →</a></p>
 	</section>
 
-	<section id="skills">
-		<h2 class="section-title">Skills</h2>
-		<div class="skill-pills">
-			{skills.map((s) => <span class="tag">{s}</span>)}
-		</div>
-	</section>
-
-	{/* Stated plainly rather than buried in the Contact paragraph, where it used to
-	    live. A recruiter's first question is whether there's a match at all. */}
+	{/* Fit and Skills combined into one section. The looking-for spec sheet answers
+	    "is there a match at all" (a recruiter's first question); the skills pills sit
+	    under it as the last row of the same sheet, so the section reads as one unit. */}
 	<section id="fit">
 		<p class="section-title">Fit</p>
 		<h2>What I'm looking for.</h2>
-		<p class="subhead" style="margin: 0.75rem 0 1.5rem;">The short version, so you can tell in ten seconds whether we should talk.</p>
+		<p class="subhead" style="margin: 0.75rem 0 1.5rem;">The short version, so you can get a feel for whether we'd work well together.</p>
 		<dl class="fit-list">
 			{fit.map((f) => (
 				<div class="fit-row">
@@ -153,6 +147,14 @@ const fit = [
 					<dd class="fit-detail">{f.detail}</dd>
 				</div>
 			))}
+			<div class="fit-row">
+				<dt class="fit-term">Skills</dt>
+				<dd class="fit-detail">
+					<div class="skill-pills">
+						{skills.map((s) => <span class="tag">{s}</span>)}
+					</div>
+				</dd>
+			</div>
 		</dl>
 	</section>
 

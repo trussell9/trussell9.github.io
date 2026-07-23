@@ -24,7 +24,6 @@ const nav: { key: string; label: string; href?: string }[] = [
 	{ key: 'about', label: 'About' },
 	{ key: 'work', label: 'Work' },
 	{ key: 'press', label: 'Press', href: '/press' },
-	{ key: 'skills', label: 'Skills' },
 	{ key: 'fit', label: 'Fit' },
 	{ key: 'contact', label: 'Contact' },
 ];
@@ -48,7 +47,7 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
 		<p class="rail-role">Product Manager</p>
 		<p class="rail-name">Tim Russell</p>
 		<p class="rail-tagline">I ship consumer products through the hard parts.</p>
-		<p class="rail-location">Toronto, Canada</p>
+		<p class="rail-location">Toronto · Remote or hybrid</p>
 
 		<nav class="rail-nav" aria-label="Primary">
 			{nav.map((item) => (

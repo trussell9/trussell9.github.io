@@ -12,8 +12,10 @@ order: 2
 metrics:
   - value: "$3M"
     label: "Year-over-year increase in live wagering volume"
-  - value: "3 sports"
-    label: "Live experiences shipped: NFL, Golf, MMA"
+  - value: "40.7%"
+    label: "Increase in live bettors"
+  - value: "32.5%"
+    label: "Increase in live bets"
 links: []
 ---
 
@@ -33,4 +35,4 @@ I then extended the live-betting experience with real-time visualizations for Go
 
 ## Impact
 
-NFL streaming drove a **$3M year-over-year increase in live wagering volume**, and the Golf and MMA visualizations increased the cohort of live bettors for each sport.
+NFL streaming drove a **$3M year-over-year increase in live wagering volume**, a **40.7% increase in live bettors**, and a **32.5% increase in live bets**. The Golf and MMA visualizations increased the cohort of live bettors for each sport.
