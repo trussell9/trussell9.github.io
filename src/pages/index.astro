@@ -15,6 +15,15 @@ const pressOutlets = [
 	...new Set((await getCollection('press')).map((p) => p.data.outlet).filter(Boolean)),
 ];
 
+// The three numbers that do the most work in the first screen. Each one is the
+// headline metric of a case study below, so the strip doubles as a table of
+// contents for the work. Kept to three: a fourth stops being a headline.
+const stats = [
+	{ value: '$3M', label: 'Year-over-year lift in live wagering' },
+	{ value: '2', label: 'Platform rebrands, no live disruption' },
+	{ value: '1.5M', label: 'Users on the app I rebuilt' },
+];
+
 // Skills shown as a single combined set of pills (no category groupings).
 const skills = [
 	'Product Strategy',
@@ -36,6 +45,19 @@ const skills = [
 	    the name and role in type — but a page with no h1 is a heading-structure and
 	    SEO gap, and screen-reader "jump by heading" starts here. */}
 	<h1 class="sr-only">Tim Russell — Product Manager</h1>
+
+	{/* Outcomes before prose. The rail says who I am; this says what the work was
+	    worth, before the reader has to scroll or commit to three paragraphs.
+	    Same component as the case-study metric bands, so the numbers here and the
+	    numbers on the studies read as one system. */}
+	<dl class="metric-band metric-band--intro">
+		{stats.map((s) => (
+			<div class="metric">
+				<dt class="metric-value">{s.value}</dt>
+				<dd class="metric-label">{s.label}</dd>
+			</div>
+		))}
+	</dl>
 
 	<section id="about">
 		<h2 class="section-title">About</h2>
